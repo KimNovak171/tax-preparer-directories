@@ -8,7 +8,7 @@ import {
   getStateSummary,
 } from "@/lib/stateFacilities";
 
-const siteUrl = "https://fertilityclinicdirectories.com";
+const siteUrl = "https://urologistdirectories.com";
 
 type StatePageProps = {
   params: Promise<{ stateSlug: string }>;
@@ -25,9 +25,9 @@ export async function generateMetadata({
 
   const { stateName, totalFacilities, cities } = await getStateSummary(safeSlug);
 
-  const title = `Fertility Clinics in ${stateName} | ${totalFacilities.toLocaleString()} Verified Practices | FertilityClinicDirectories.com`;
+  const title = `Urologists in ${stateName} | ${totalFacilities.toLocaleString()} Verified Practices | UrologistDirectories.com`;
 
-  const descriptor = `Browse ${totalFacilities.toLocaleString()} verified fertility clinics across ${cities.length.toLocaleString()} ${stateName} cities. Find reproductive health providers — all rated 3 stars or higher on Google Maps.`;
+  const descriptor = `Browse ${totalFacilities.toLocaleString()} verified urology practices across ${cities.length.toLocaleString()} ${stateName} cities. Find urologists and urology clinics — all rated 3 stars or higher on Google Maps.`;
 
   return {
     title,
@@ -42,14 +42,14 @@ export async function generateMetadata({
       title,
       description: descriptor,
       url: canonicalPath,
-      siteName: "FertilityClinicDirectories.com",
+      siteName: "UrologistDirectories.com",
       type: "website",
       images: [
         {
           url: "/og-image.svg",
           width: 1200,
           height: 630,
-          alt: `${stateName} fertility clinic directory preview`,
+          alt: `${stateName} urologist directory preview`,
         },
       ],
     },
@@ -73,8 +73,8 @@ export default async function StatePage({ params }: StatePageProps) {
     careTypes,
   } = await getStateSummary(stateSlug ?? "");
   const resourcesUrl = getStateResourcesUrl(resolvedStateSlug);
-  const fertilityClinicFocusText =
-    "fertility consultations, reproductive health care, family planning, pregnancy-related support, and women's health services";
+  const urologyFocusText =
+    "urologists, pediatric urologists, urological surgeons, and urology clinic care";
   const majorCities = [...cities]
     .sort((a, b) => b.facilityCount - a.facilityCount)
     .slice(0, 6)
@@ -86,7 +86,7 @@ export default async function StatePage({ params }: StatePageProps) {
   const careTypesSentence =
     topCareTypes.length > 0
       ? topCareTypes.join(", ")
-      : "fertility consultations, reproductive health care, family planning, pregnancy-related support, and women's health services";
+      : "urologists, pediatric urologists, urological surgeons, urology clinics";
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -95,7 +95,7 @@ export default async function StatePage({ params }: StatePageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "FertilityClinicDirectories.com",
+        name: "UrologistDirectories.com",
         item: `${siteUrl}/`,
       },
       {
@@ -113,7 +113,7 @@ export default async function StatePage({ params }: StatePageProps) {
     mainEntity: [
       {
         "@type": "Question",
-        name: `How many fertility clinics are in ${stateName}?`,
+        name: `How many urology practices are in ${stateName}?`,
         acceptedAnswer: {
           "@type": "Answer",
           text: `Our directory lists ${totalFacilities.toLocaleString()} verified facilities across ${cities.length.toLocaleString()} cities.`,
@@ -121,7 +121,7 @@ export default async function StatePage({ params }: StatePageProps) {
       },
       {
         "@type": "Question",
-        name: `What types of fertility and reproductive health services are available in ${stateName}?`,
+        name: `What types of urology services are available in ${stateName}?`,
         acceptedAnswer: {
           "@type": "Answer",
           text: `${careTypesSentence}.`,
@@ -141,33 +141,33 @@ export default async function StatePage({ params }: StatePageProps) {
   const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `Fertility Clinics in ${stateName}`,
+    name: `Urologists in ${stateName}`,
     url: `${siteUrl}/${resolvedStateSlug}`,
     isPartOf: {
       "@type": "WebSite",
-      name: "FertilityClinicDirectories.com",
+      name: "UrologistDirectories.com",
       url: `${siteUrl}/`,
     },
     about: [
       {
         "@type": "Thing",
-        name: `${stateName} fertility clinics`,
+        name: `${stateName} urology practices`,
       },
       {
         "@type": "Thing",
-        name: "General fertility care",
+        name: "General urology",
       },
       {
         "@type": "Thing",
-        name: "Reproductive health services",
+        name: "Pediatric urology",
       },
       {
         "@type": "Thing",
-        name: "Women's health",
+        name: "Urological surgery",
       },
       {
         "@type": "Thing",
-        name: "Family planning",
+        name: "Urology clinics",
       },
     ],
     speakable: {
@@ -210,11 +210,11 @@ export default async function StatePage({ params }: StatePageProps) {
           State overview
         </p>
         <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
-          Fertility Clinics in {stateName}
+          Urologists in {stateName}
         </h1>
         <p className="mt-3 max-w-2xl text-sm text-foreground/80">
-          Explore {fertilityClinicFocusText} across {stateName}, including major city
-          areas such as {majorCitiesText}. Use this page to find fertility clinics by city,
+          Explore {urologyFocusText} across {stateName}, including major city
+          areas such as {majorCitiesText}. Use this page to find urology practices by city,
           then review{" "}
           <a
             href={resourcesUrl}
@@ -222,9 +222,9 @@ export default async function StatePage({ params }: StatePageProps) {
             rel="noopener noreferrer"
             className="underline underline-offset-2 hover:text-gold-soft"
           >
-            official {stateName} healthcare consumer resources
+            American Urological Association (AUA) resources
           </a>{" "}
-          for finding qualified fertility and reproductive health providers and understanding your options.
+          for understanding board certification, patient education, and how to choose a urologist.
         </p>
 
         <div className="mt-5 grid gap-4 text-sm sm:grid-cols-3">
@@ -284,12 +284,11 @@ export default async function StatePage({ params }: StatePageProps) {
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-navy border-b-2 border-teal/50 pb-1 inline-block">
-              Fertility Clinics by City in {stateName}
+              Urology Practices by City in {stateName}
             </h2>
             <p className="mt-1 max-w-2xl text-sm text-slate-600">
-              Choose a city to browse fertility clinics and reproductive health providers in{" "}
-              {stateName}, including consultations, family planning, and
-              pregnancy-related care.
+              Choose a city to browse urologists, urology clinics, and urological surgeons in{" "}
+              {stateName}, including general urology and pediatric urology options.
             </p>
           </div>
           <div className="text-xs text-slate-500">

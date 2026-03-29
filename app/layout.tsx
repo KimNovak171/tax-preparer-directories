@@ -16,29 +16,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fertilityclinicdirectories.com"),
+  metadataBase: new URL("https://urologistdirectories.com"),
   title: {
-    default: "FertilityClinicDirectories.com | Fertility Clinic Directory",
-    template: "%s | FertilityClinicDirectories.com",
+    default: "UrologistDirectories.com | Urologist Directory",
+    template: "%s | UrologistDirectories.com",
   },
   description:
-    "FertilityClinicDirectories.com is a professional, easy-to-use fertility clinic directory helping patients and families find local fertility clinics and reproductive health services across the United States and Canada.",
+    "UrologistDirectories.com is a professional, easy-to-use urologist directory helping patients find local urologists, urology clinics, pediatric urologists, and urological surgeons across the United States and Canada.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "FertilityClinicDirectories.com | Fertility Clinic Directory",
+    title: "UrologistDirectories.com | Urologist Directory",
     description:
-      "Trusted resource to explore and compare fertility clinics and reproductive health providers across North America.",
+      "Trusted resource to explore and compare urology practices and specialists across North America.",
     url: "/",
-    siteName: "FertilityClinicDirectories.com",
+    siteName: "UrologistDirectories.com",
     type: "website",
     images: [
       {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "FertilityClinicDirectories.com logo preview",
+        alt: "UrologistDirectories.com logo preview",
       },
     ],
   },
@@ -69,9 +69,9 @@ export default async function RootLayout({
                 <Link
                   href="/"
                   className="text-[11px] font-bold tracking-[0.28em] sm:text-xs text-white hover:text-teal-soft transition-colors"
-                  aria-label="FertilityClinicDirectories.com – go to homepage"
+                  aria-label="UrologistDirectories.com – go to homepage"
                 >
-                  FertilityClinicDirectories.com
+                  UrologistDirectories.com
                 </Link>
                 <nav className="flex items-center gap-4" aria-label="Main navigation">
                   <Link
@@ -101,7 +101,7 @@ export default async function RootLayout({
                 </nav>
               </div>
               <p className="ml-4 hidden max-w-xs text-right text-xs text-white/90 sm:block">
-                Trusted fertility clinic directory for patients and families.
+                Trusted urologist directory for patients and caregivers.
               </p>
             </div>
           </header>
@@ -181,7 +181,7 @@ export default async function RootLayout({
           <footer className="w-full border-t border-teal/10 bg-surface">
             <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 text-xs text-foreground/80 sm:px-6 lg:px-8">
               <p>
-                © {new Date().getFullYear()} FertilityClinicDirectories.com. For
+                © {new Date().getFullYear()} UrologistDirectories.com. For
                 informational purposes only – always verify licensing,
                 certifications, and safety requirements with your local authority.
               </p>
@@ -199,7 +199,7 @@ export default async function RootLayout({
                   Advertise
                 </Link>
                 <Link href="/advertise" className="hover:text-teal-soft">
-                  For fertility clinics
+                  For urology practices
                 </Link>
                 <Link href="/advertise" className="hover:text-teal-soft">
                   Featured Listing

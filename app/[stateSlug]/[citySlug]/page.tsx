@@ -9,7 +9,7 @@ import {
   getOtherCitiesInState,
 } from "@/lib/stateFacilities";
 
-const siteUrl = "https://fertilityclinicdirectories.com";
+const siteUrl = "https://urologistdirectories.com";
 
 type CityPageProps = {
   params: Promise<{ stateSlug: string; citySlug: string }>;
@@ -28,8 +28,8 @@ export async function generateMetadata({
   const { stateName, cityName, facilities: cityFacilities } =
     await getCityFacilities(safeState, safeCity);
   const count = Array.isArray(cityFacilities) ? cityFacilities.length : 0;
-  const title = `Fertility Clinics in ${cityName}, ${stateName} | Fertility Clinic Directories`;
-  const description = `Find trusted fertility and reproductive health services in ${cityName}, ${stateName}—browse ${count.toLocaleString()} verified practices with contact details, maps, and Google ratings so you can choose with confidence.`;
+  const title = `Urologists in ${cityName}, ${stateName} | Urologist Directories`;
+  const description = `Find trusted urologists and urology care in ${cityName}, ${stateName}—browse ${count.toLocaleString()} verified practices with contact details, maps, and Google ratings so you can choose with confidence.`;
 
   return {
     title,
@@ -44,14 +44,14 @@ export async function generateMetadata({
       title,
       description,
       url: canonicalPath,
-      siteName: "FertilityClinicDirectories.com",
+      siteName: "UrologistDirectories.com",
       type: "website",
       images: [
         {
           url: "/og-image.svg",
           width: 1200,
           height: 630,
-          alt: `${cityName}, ${stateName} fertility clinic directory preview`,
+          alt: `${cityName}, ${stateName} urologist directory preview`,
         },
       ],
     },
@@ -108,7 +108,7 @@ export default async function CityPage({ params }: CityPageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "FertilityClinicDirectories.com",
+        name: "UrologistDirectories.com",
         item: `${siteUrl}/`,
       },
       {
@@ -129,37 +129,37 @@ export default async function CityPage({ params }: CityPageProps) {
   const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `Fertility Clinics in ${cityName}, ${stateName}`,
+    name: `Urologists in ${cityName}, ${stateName}`,
     url: `${siteUrl}/${stateSlugNorm}/${citySlugNorm}`,
     isPartOf: {
       "@type": "WebSite",
-      name: "FertilityClinicDirectories.com",
+      name: "UrologistDirectories.com",
       url: `${siteUrl}/`,
     },
     about: [
       {
         "@type": "Thing",
-        name: `${cityName} fertility clinics`,
+        name: `${cityName} urology practices`,
       },
       {
         "@type": "Thing",
-        name: `${stateName} reproductive health services`,
+        name: `${stateName} urologists`,
       },
       {
         "@type": "Thing",
-        name: "General fertility care",
+        name: "General urology",
       },
       {
         "@type": "Thing",
-        name: "Reproductive health services",
+        name: "Pediatric urology",
       },
       {
         "@type": "Thing",
-        name: "Women's health",
+        name: "Urological surgery",
       },
       {
         "@type": "Thing",
-        name: "Family planning",
+        name: "Urology clinics",
       },
     ],
     speakable: {
@@ -180,19 +180,19 @@ export default async function CityPage({ params }: CityPageProps) {
       />
       <header className="space-y-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
-          Fertility clinics by city
+          Urologists by city
         </p>
         <h1 className="text-3xl font-semibold text-navy">
-          Fertility Clinics in {cityName}, {stateName}
+          Urologists in {cityName}, {stateName}
         </h1>
         <p className="max-w-2xl text-sm text-slate-600">
-          {cityName} has {facilities.length.toLocaleString()} verified fertility
+          {cityName} has {facilities.length.toLocaleString()} verified urology
           practices {careTypesClause}. Browse all options below, each with
           Google Maps profile links and ratings data where available.
         </p>
         <p className="max-w-2xl text-sm text-slate-600">
           Compare practices side by side, review services and contact details,
-          and find the right fertility clinic for you and your family in{" "}
+          and find the right urologist or urology clinic for you in{" "}
           {stateName}.
         </p>
       </header>

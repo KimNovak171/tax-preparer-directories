@@ -1,28 +1,21 @@
 /**
  * Turn raw Google-style category labels into short, natural phrases for prose
- * (e.g. city page intros). Omits entries that do not look fertility-clinic-related.
+ * (e.g. city page intros). Omits entries that do not look urology-related.
  */
 
 const EXACT_PHRASE: Record<string, string> = {
-  "fertility clinic": "fertility clinics",
-  "reproductive health clinic": "reproductive health clinics",
-  "women's health clinic": "women's health clinics",
-  "womens health clinic": "women's health clinics",
-  "fertility physician": "fertility physicians",
-  "family planning center": "family planning centers",
-  "obstetrician-gynecologist": "obstetrician-gynecologists",
-  "pregnancy care center": "pregnancy care centers",
-  "birth control center": "birth control centers",
-  gynecologist: "gynecologists",
-  midwife: "midwives",
-  "birth center": "birth centers",
+  urologist: "urologists",
+  "urology clinic": "urology clinics",
+  "pediatric urologist": "pediatric urologists",
+  "urological surgeon": "urological surgeons",
+  "urology physician": "urology physicians",
+  urology: "urology services",
 };
 
-const FERTILITY_LIKE =
-  /fertility|reproductive|women'?s\s+health|family\s+planning|obstetric|gynec|pregnan|birth\s+control|midwi|birth\s+center/i;
+const UROLOGY_LIKE = /urolog/i;
 
 /** Labels that match common noise but are not healthcare services. */
-const NON_FERTILITY =
+const NON_UROLOGY =
   /auto\s+repair|collision|transmission|student\s+dormitory|orthodox\s+church|storage\s+facility|insurance\s+agency/i;
 
 function normalizeKey(raw: string): string {
@@ -31,7 +24,7 @@ function normalizeKey(raw: string): string {
 
 /** Fallback: lowercase prose, light plural / phrasing for service-style labels. */
 function humanizeFallback(raw: string): string {
-  let s = raw.trim().toLowerCase();
+  const s = raw.trim().toLowerCase();
   if (!s) return "";
   if (s.endsWith(" service")) {
     return `${s.slice(0, -" service".length)} services`;
@@ -42,7 +35,7 @@ function humanizeFallback(raw: string): string {
   if (s.endsWith(" center")) {
     return s.replace(/ center$/, " centers");
   }
-  if (s.endsWith("ist") && !s.endsWith("fertility physician")) {
+  if (s.endsWith("ist") && !/urologist$/.test(s)) {
     return `${s}s`;
   }
   if (!s.endsWith("s")) {
@@ -54,9 +47,9 @@ function humanizeFallback(raw: string): string {
 function phraseForLabel(raw: string): string | null {
   const key = normalizeKey(raw);
   if (!key) return null;
-  if (NON_FERTILITY.test(key)) return null;
+  if (NON_UROLOGY.test(key)) return null;
   if (EXACT_PHRASE[key]) return EXACT_PHRASE[key];
-  if (!FERTILITY_LIKE.test(raw)) return null;
+  if (!UROLOGY_LIKE.test(raw)) return null;
   return humanizeFallback(raw);
 }
 
@@ -85,7 +78,7 @@ export function formatCareTypesClause(
     if (phrases.length >= maxItems) break;
   }
   if (phrases.length === 0) {
-    return "including fertility clinic and reproductive health services";
+    return "including urologists, urology clinics, pediatric urologists, and urological surgeons";
   }
   return `including ${oxfordJoin(phrases)}`;
 }

@@ -12,11 +12,11 @@ export function generateMetadata({
   const regionCode = params.region.toUpperCase();
 
   return {
-    title: `Fertility clinics in ${regionCode}`,
-    description: `Explore fertility clinic options and reproductive health services in ${regionCode} with FertilityClinicDirectories.com.`,
+    title: `Urologists in ${regionCode}`,
+    description: `Explore urologist and urology clinic options in ${regionCode} with UrologistDirectories.com.`,
     openGraph: {
-      title: `Fertility clinics in ${regionCode} | FertilityClinicDirectories.com`,
-      description: `Browse fertility clinic options and services in ${regionCode}.`,
+      title: `Urologists in ${regionCode} | UrologistDirectories.com`,
+      description: `Browse urology practices and services in ${regionCode}.`,
       url: `/locations/${params.region}`,
       type: "website",
     },
@@ -30,15 +30,15 @@ export default function RegionPage({ params }: RegionPageProps) {
     <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="space-y-4">
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-teal">
-          Fertility Clinics by Region
+          Urologists by Region
         </p>
         <h1 className="text-3xl font-semibold text-navy">
-          Fertility clinic options in {regionCode}
+          Urology practices in {regionCode}
         </h1>
         <p className="max-w-2xl text-sm text-slate-600">
           This is a placeholder view for{" "}
           <span className="font-semibold">{regionCode}</span>. Here you&apos;ll
-          be able to browse fertility clinic services in this state or
+          be able to browse urologists and urology clinics in this state or
           province.
         </p>
         <div className="mt-6 rounded-xl border border-surface-muted bg-surface px-4 py-6 text-sm text-slate-500">

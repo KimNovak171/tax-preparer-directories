@@ -7,7 +7,7 @@ import {
   getOtherCitiesInProvince,
 } from "@/lib/canadaFacilities";
 
-const siteUrl = "https://fertilityclinicdirectories.com";
+const siteUrl = "https://urologistdirectories.com";
 
 type CanadaCityPageProps = {
   params: Promise<{ provinceSlug: string; citySlug: string }>;
@@ -24,8 +24,8 @@ export async function generateMetadata({
   const { provinceName, cityName, facilities: cityFacilities } =
     await getCanadaCityFacilities(safeProvince, safeCity);
   const count = Array.isArray(cityFacilities) ? cityFacilities.length : 0;
-  const title = `Fertility Clinics in ${cityName}, ${provinceName}, Canada | Fertility Clinic Directories`;
-  const description = `Find ${count.toLocaleString()} fertility clinics in ${cityName}, ${provinceName}. Compare services and practice details. Verified listings with ratings and reviews.`;
+  const title = `Urologists in ${cityName}, ${provinceName}, Canada | Urologist Directories`;
+  const description = `Find ${count.toLocaleString()} urology practices in ${cityName}, ${provinceName}. Compare services and practice details. Verified listings with ratings and reviews.`;
 
   return {
     title,
@@ -37,14 +37,14 @@ export async function generateMetadata({
       title,
       description,
       url: canonicalPath,
-      siteName: "FertilityClinicDirectories.com",
+      siteName: "UrologistDirectories.com",
       type: "website",
       images: [
         {
           url: "/og-image.svg",
           width: 1200,
           height: 630,
-          alt: `${cityName}, ${provinceName} fertility clinic directory preview`,
+          alt: `${cityName}, ${provinceName} urologist directory preview`,
         },
       ],
     },
@@ -94,7 +94,7 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
   const careTypesText =
     careTypes.length > 0
       ? careTypes.slice(0, 4).join(", ")
-      : "fertility and reproductive health services";
+      : "urologists, urology clinics, and urological surgery";
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -103,7 +103,7 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "FertilityClinicDirectories.com",
+        name: "UrologistDirectories.com",
         item: `${siteUrl}/`,
       },
       {
@@ -130,20 +130,20 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
   const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `Fertility Clinics in ${cityName}, ${provinceName}, Canada`,
+    name: `Urologists in ${cityName}, ${provinceName}, Canada`,
     url: `${siteUrl}/canada/${provinceSlugNorm}/${citySlugNorm}`,
     isPartOf: {
       "@type": "WebSite",
-      name: "FertilityClinicDirectories.com",
+      name: "UrologistDirectories.com",
       url: `${siteUrl}/`,
     },
     about: [
-      { "@type": "Thing", name: `${cityName} fertility clinics` },
-      { "@type": "Thing", name: `${provinceName} reproductive health services` },
-      { "@type": "Thing", name: "General fertility care" },
-      { "@type": "Thing", name: "Reproductive health services" },
-      { "@type": "Thing", name: "Women's health" },
-      { "@type": "Thing", name: "Family planning" },
+      { "@type": "Thing", name: `${cityName} urology practices` },
+      { "@type": "Thing", name: `${provinceName} urologists` },
+      { "@type": "Thing", name: "General urology" },
+      { "@type": "Thing", name: "Pediatric urology" },
+      { "@type": "Thing", name: "Urological surgery" },
+      { "@type": "Thing", name: "Urology clinics" },
     ],
     speakable: {
       "@type": "SpeakableSpecification",
@@ -163,19 +163,19 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
       />
       <header className="space-y-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
-          Fertility clinics by city
+          Urologists by city
         </p>
         <h1 className="text-3xl font-semibold text-navy">
-          Fertility Clinics in {cityName}, {provinceName}
+          Urologists in {cityName}, {provinceName}
         </h1>
         <p className="max-w-2xl text-sm text-slate-600">
           {cityName} has {facilities.length.toLocaleString()} verified
-          fertility clinics including {careTypesText}. Browse all options below,
+          urology practices including {careTypesText}. Browse all options below,
           each with Google Maps profile links and ratings data where available.
         </p>
         <p className="max-w-2xl text-sm text-slate-600">
           Compare practices side by side, review services and contact
-          details, and share this page with patients and families as you plan
+          details, and share this page with patients and caregivers as you plan
           next steps in {provinceName}.
         </p>
       </header>

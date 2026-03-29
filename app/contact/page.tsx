@@ -3,33 +3,33 @@ import Link from "next/link";
 import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Fertility Clinic Directories",
+  title: "Contact Us | Urologist Directories",
   description:
-    "Get in touch with FertilityClinicDirectories.com. Send a message or email hello@directoriesnetwork.com for questions about our directory or featured listings.",
+    "Get in touch with UrologistDirectories.com. Send a message or email hello@directoriesnetwork.com for questions about our directory or featured listings.",
   alternates: {
     canonical: "/contact",
     languages: {
-      "en-us": "https://fertilityclinicdirectories.com/contact",
+      "en-us": "https://urologistdirectories.com/contact",
     },
   },
   openGraph: {
-    title: "Contact Us | Fertility Clinic Directories",
+    title: "Contact Us | Urologist Directories",
     description:
-      "Contact FertilityClinicDirectories.com for questions about our directory or featured listings.",
+      "Contact UrologistDirectories.com for questions about our directory or featured listings.",
     url: "/contact",
-    siteName: "FertilityClinicDirectories.com",
+    siteName: "UrologistDirectories.com",
     type: "website",
   },
 };
 
-const siteUrl = "https://fertilityclinicdirectories.com";
+const siteUrl = "https://urologistdirectories.com";
 
 export default function ContactPage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "FertilityClinicDirectories.com", item: `${siteUrl}/` },
+      { "@type": "ListItem", position: 1, name: "UrologistDirectories.com", item: `${siteUrl}/` },
       { "@type": "ListItem", position: 2, name: "Contact", item: `${siteUrl}/contact` },
     ],
   };

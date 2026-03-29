@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://fertilityclinicdirectories.com/sitemap.xml",
+    sitemap: "https://urologistdirectories.com/sitemap.xml",
   };
 }
 
