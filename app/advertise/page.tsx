@@ -30,8 +30,8 @@ export const metadata: Metadata = {
 };
 
 const siteUrl = "https://nailsalondirectories.com";
-const STRIPE_LINK_49 = "https://buy.stripe.com/14AfZhfiG0bd1xI6vnfAc0y";
-const STRIPE_LINK_99 = "https://buy.stripe.com/bJefZh0nM3npa4ecTLfAc0z";
+const STRIPE_LINK_49 = "https://buy.stripe.com/cNi4gzfiG9LNfoycTLfAc0A";
+const STRIPE_LINK_99 = "https://buy.stripe.com/5kQ7sL2vU7DF0tE06ZfAc0B";
 
 export default function AdvertisePage() {
   const breadcrumbSchema = {
