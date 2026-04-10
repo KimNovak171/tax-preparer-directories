@@ -73,6 +73,20 @@ export default async function Home() {
       <section className="bg-surface">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
           <div className="flex flex-col gap-6">
+            <div className="space-y-6 rounded-2xl bg-brand-gradient px-6 py-8 text-brand-ink shadow-sm sm:px-8 sm:py-10">
+              <p className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] backdrop-blur-sm">
+                Tattoo Shop Directories
+              </p>
+              <h1 className="text-balance text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+                Find Trusted Tattoo Shops — US States &amp; Canadian Provinces
+              </h1>
+              <p className="max-w-2xl text-balance text-sm sm:text-base text-white/85">
+                Verified tattoo shops, tattoo artists, and body art studios across the United States and Canada—browse by
+                state or province, then by city. Every listing rated 3★ or higher
+                on Google Maps.
+              </p>
+            </div>
+
             <section
               aria-label="Directory statistics"
               className="w-full rounded-2xl border border-teal/25 bg-surface p-5 shadow-sm sm:p-6"
@@ -137,20 +151,6 @@ export default async function Home() {
                 </div>
               </div>
             </section>
-
-            <div className="space-y-6 rounded-2xl bg-brand-gradient px-6 py-8 text-brand-ink shadow-sm sm:px-8 sm:py-10">
-              <p className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] backdrop-blur-sm">
-                Tattoo Shop Directories
-              </p>
-              <h1 className="text-balance text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-                Find Trusted Tattoo Shops — US States &amp; Canadian Provinces
-              </h1>
-              <p className="max-w-2xl text-balance text-sm sm:text-base text-white/85">
-                Verified tattoo shops, tattoo artists, and body art studios across the United States and Canada—browse by
-                state or province, then by city. Every listing rated 3★ or higher
-                on Google Maps.
-              </p>
-            </div>
           </div>
 
           <div className="w-full rounded-2xl border-2 border-teal/40 bg-surface p-6 shadow-xl shadow-navy/20 ring-1 ring-teal/30">

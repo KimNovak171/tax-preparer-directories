@@ -57,37 +57,6 @@ export default async function CanadaLandingPage() {
             </p>
           </div>
 
-          <div className="w-full rounded-2xl border-2 border-teal/40 bg-surface p-6 shadow-xl shadow-navy/20 ring-1 ring-teal/30">
-            <h2 className="text-xl font-semibold text-foreground">
-              Choose a province
-            </h2>
-            <p className="mt-2 text-sm text-foreground/90">
-              Browse verified shops by province, then drill down
-              by city to compare services and contact details.
-            </p>
-            <p className="mt-2 text-sm font-medium text-foreground">
-              {directory.map((item) => item.provinceName).join(" • ")}
-            </p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {directory.map((item) => (
-                <Link
-                  key={item.provinceSlug}
-                  href={`/canada/${item.provinceSlug}`}
-                  className="rounded-xl border-2 border-gold bg-surface-muted px-5 py-4 text-left text-navy transition hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                >
-                  <p className="text-lg font-semibold">{item.provinceName}</p>
-                  <p className="mt-1 text-sm text-gold-soft">
-                    {item.provinceName} — {item.totalFacilities.toLocaleString()} shops
-                  </p>
-                </Link>
-              ))}
-            </div>
-            <p className="mt-4 text-sm font-medium text-foreground">
-              Each province has its own dedicated directory — specific
-              shops, specific cities, built for that province only.
-            </p>
-          </div>
-
           <section
             aria-label="Canada directory statistics"
             className="w-full rounded-2xl border border-teal/25 bg-surface p-5 shadow-sm sm:p-6"
@@ -129,6 +98,37 @@ export default async function CanadaLandingPage() {
               </div>
             </div>
           </section>
+
+          <div className="w-full rounded-2xl border-2 border-teal/40 bg-surface p-6 shadow-xl shadow-navy/20 ring-1 ring-teal/30">
+            <h2 className="text-xl font-semibold text-foreground">
+              Choose a province
+            </h2>
+            <p className="mt-2 text-sm text-foreground/90">
+              Browse verified shops by province, then drill down
+              by city to compare services and contact details.
+            </p>
+            <p className="mt-2 text-sm font-medium text-foreground">
+              {directory.map((item) => item.provinceName).join(" • ")}
+            </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {directory.map((item) => (
+                <Link
+                  key={item.provinceSlug}
+                  href={`/canada/${item.provinceSlug}`}
+                  className="rounded-xl border-2 border-gold bg-surface-muted px-5 py-4 text-left text-navy transition hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  <p className="text-lg font-semibold">{item.provinceName}</p>
+                  <p className="mt-1 text-sm text-gold-soft">
+                    {item.provinceName} — {item.totalFacilities.toLocaleString()} shops
+                  </p>
+                </Link>
+              ))}
+            </div>
+            <p className="mt-4 text-sm font-medium text-foreground">
+              Each province has its own dedicated directory — specific
+              shops, specific cities, built for that province only.
+            </p>
+          </div>
         </div>
       </section>
 

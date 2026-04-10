@@ -8,8 +8,8 @@ import path from "path";
  * and loads each in one batch (`readFileSync` + try/catch → [] per file).
  *
  * Maps URLs (CRITICAL):
- * - With non-empty `place_id`: `https://www.google.com/maps/place/?q=place_id:{place_id}` (`place_id` value URI-encoded).
- * - If `place_id` is missing or empty: `https://www.google.com/maps/search/?api=1&query={encoded_address}`.
+ * - With non-empty `place_id`: `https://www.google.com/maps/place/?q=place_id:` + encoded place_id value.
+ * - If `place_id` is missing or empty: `https://www.google.com/maps/search/?api=1&query=` + encoded full address.
  *
  * Homepage and `/canada` use `getCanadaNationwideStats()` / `getCanadaDirectoryIndex()` (derived from
  * `PROVINCE_DATA` at module load).
@@ -84,6 +84,7 @@ function loadCanadaProvinceRawArray(slug: string): CanadaFacilityRaw[] {
 
 type CanadaFacilityRaw = {
   name: string;
+  category?: string;
   care_type?: string;
   type?: string;
   /** Google-style category string (comma-separated), common in scraped exports. */
@@ -191,6 +192,8 @@ function buildCanadaMapsUrl(
 }
 
 function careTypesFromCanadaRaw(f: CanadaFacilityRaw): string[] {
+  const cat = (f.category ?? "").trim();
+  if (cat) return [cat];
   const single = (f.care_type ?? f.type ?? "").trim();
   if (single) return [single];
   const sub = (f.subtypes ?? "").trim();
