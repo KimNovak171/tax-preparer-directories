@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getPostSlugs } from "@/lib/blog";
-import { DIRECTORY_BRAND_NAME } from "@/lib/careTypesProse";
+import { getAllPosts, getPostBySlug } from "@/lib/blog";
 
 const siteUrl = "https://taxpreparerdirectories.com";
 
@@ -11,7 +10,8 @@ type BlogPostPageProps = {
 };
 
 export async function generateStaticParams() {
-  return getPostSlugs().map((slug) => ({ slug }));
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -19,94 +19,115 @@ export async function generateMetadata({
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-
   if (!post) {
-    return { title: "Article not found" };
+    return { title: "Article | Tax Preparer Directories" };
   }
-
+  const title = `${post.title} | Tax Preparer Directories`;
   const canonicalPath = `/blog/${post.slug}`;
-  const canonicalUrl = `${siteUrl}${canonicalPath}`;
-
   return {
-    title: post.title,
+    title,
     description: post.description,
     alternates: {
       canonical: canonicalPath,
-      languages: {
-        "en-us": canonicalUrl,
-      },
     },
     openGraph: {
-      title: post.title,
+      title,
       description: post.description,
       url: canonicalPath,
-      siteName: DIRECTORY_BRAND_NAME,
+      siteName: "TaxPreparerDirectories.com",
       type: "article",
       publishedTime: post.date,
+      images: [
+        {
+          url: "/og-image.svg",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
   };
+}
+
+function formatPostDate(dateStr: string): string {
+  const t = Date.parse(dateStr);
+  if (Number.isNaN(t)) return dateStr;
+  return new Date(t).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
+  if (!post) notFound();
 
-  if (!post) {
-    notFound();
-  }
-
-  const displayDate = (() => {
-    const t = new Date(post.date).getTime();
-    if (Number.isNaN(t)) {
-      return post.date;
-    }
-    return new Date(post.date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  })();
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "TaxPreparerDirectories.com",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${siteUrl}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `${siteUrl}/blog/${post.slug}`,
+      },
+    ],
+  };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-      <nav className="text-sm text-slate-600">
-        <Link href="/blog" className="font-medium text-teal hover:text-teal-soft">
-          Blog
-        </Link>
-        <span className="mx-2 text-slate-400" aria-hidden>
-          /
-        </span>
-        <span className="text-slate-500">Article</span>
-      </nav>
+    <div className="bg-surface-muted text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
-      <article className="mt-6 max-w-3xl">
-        <header className="space-y-3 border-b border-slate-200 pb-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
-            Blog
-          </p>
-          <h1 className="text-3xl font-semibold text-navy sm:text-4xl">
-            {post.title}
-          </h1>
-          <time
-            dateTime={post.date}
-            className="block text-sm font-medium text-slate-500"
-          >
-            {displayDate}
-          </time>
-          <p className="text-sm text-slate-600">{post.description}</p>
-        </header>
+      <article className="bg-surface">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+          <header className="rounded-2xl border-2 border-teal/30 bg-navy px-6 py-8 text-white shadow-sm sm:px-8 sm:py-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
+              Article
+            </p>
+            <h1 className="mt-3 text-balance text-3xl font-semibold leading-tight sm:text-4xl">
+              {post.title}
+            </h1>
+            <time
+              dateTime={post.date}
+              className="mt-4 block text-sm font-medium text-white/80"
+            >
+              {formatPostDate(post.date)}
+            </time>
+          </header>
 
-        <div
-          className="blog-markdown mt-10 max-w-none text-sm text-slate-700 [&_a]:text-teal [&_a]:underline [&_a]:hover:text-teal-soft [&_blockquote]:border-l-4 [&_blockquote]:border-slate-200 [&_blockquote]:pl-4 [&_blockquote]:italic [&_code]:rounded [&_code]:bg-slate-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[0.9em] [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-navy [&_h3]:mt-8 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-navy [&_li]:mb-1 [&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1 [&_p]:mb-4 [&_p]:leading-relaxed [&_pre]:mb-4 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-slate-900 [&_pre]:p-4 [&_pre]:text-xs [&_pre]:text-slate-100 [&_strong]:font-semibold [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1"
-          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-        />
+          <div
+            className="prose-blog mx-auto mt-10 max-w-3xl text-base leading-relaxed text-slate-700 [&_a]:font-medium [&_a]:text-teal [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:text-teal-soft [&_blockquote]:border-l-4 [&_blockquote]:border-gold [&_blockquote]:pl-4 [&_blockquote]:text-slate-600 [&_h1]:mt-10 [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:text-navy [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-navy [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-navy [&_li]:my-1 [&_ol]:my-4 [&_p]:my-4 [&_strong]:text-navy [&_ul]:my-4"
+            dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+          />
+
+          <nav className="mx-auto mt-12 max-w-3xl border-t border-surface-muted pt-6 text-sm text-slate-600">
+            <Link
+              href="/blog"
+              className="font-medium text-teal hover:text-teal-soft hover:underline"
+            >
+              ← All articles
+            </Link>
+          </nav>
+        </div>
       </article>
-
-      <p className="mt-12 text-sm text-slate-600">
-        <Link href="/blog" className="font-medium text-teal hover:text-teal-soft">
-          All articles
-        </Link>
-      </p>
     </div>
   );
 }

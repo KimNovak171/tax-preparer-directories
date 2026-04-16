@@ -2,16 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FacilityCard } from "@/components/FacilityCard";
 import {
-  DIRECTORY_BRAND_NAME,
   formatCareTypesClause,
   taxPreparerCategorySchemaThings,
 } from "@/lib/careTypesProse";
 import {
   getCityFacilities,
-  getDirectoryIndex,
   getHreflangForRegionSlug,
   getOtherCitiesInState,
 } from "@/lib/stateFacilities";
+
+export const dynamic = "force-static";
+export const revalidate = false;
 
 const siteUrl = "https://taxpreparerdirectories.com";
 
@@ -32,8 +33,8 @@ export async function generateMetadata({
   const { stateName, cityName, facilities: cityFacilities } =
     await getCityFacilities(safeState, safeCity);
   const count = Array.isArray(cityFacilities) ? cityFacilities.length : 0;
-  const title = `Tax Preparers in ${cityName}, ${stateName} | ${DIRECTORY_BRAND_NAME}`;
-  const description = `Find trusted tax preparers and tax professionals in ${cityName}, ${stateName}—browse ${count.toLocaleString()} verified listings with contact details, maps, and Google ratings so you can choose with confidence.`;
+  const title = `Tax Preparers in ${cityName}, ${stateName} | Tax Preparer Directories`;
+  const description = `Find trusted tax preparers and tax preparation services in ${cityName}, ${stateName}—browse ${count.toLocaleString()} verified listings with contact details, maps, and Google ratings so you can choose with confidence.`;
 
   return {
     title,
@@ -48,7 +49,7 @@ export async function generateMetadata({
       title,
       description,
       url: canonicalPath,
-      siteName: DIRECTORY_BRAND_NAME,
+      siteName: "TaxPreparerDirectories.com",
       type: "website",
       images: [
         {
@@ -63,14 +64,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const directory = await getDirectoryIndex();
-  const params = directory.flatMap((state) =>
-    state.cities.map((city) => ({
-      stateSlug: state.stateSlug,
-      citySlug: city.citySlug,
-    })),
-  );
-  return params.filter(({ stateSlug, citySlug }) => stateSlug && citySlug);
+  return [];
 }
 
 export default async function CityPage({ params }: CityPageProps) {
@@ -79,8 +73,6 @@ export default async function CityPage({ params }: CityPageProps) {
     stateName,
     cityName,
     facilities: facilitiesRaw,
-    totalFacilities,
-    citiesCount,
   } = await getCityFacilities(stateSlug ?? "", citySlug ?? "");
   const facilities = [...facilitiesRaw].sort((a, b) => {
     const score = (f: { featured?: boolean; premium?: boolean }) =>
@@ -112,7 +104,7 @@ export default async function CityPage({ params }: CityPageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: DIRECTORY_BRAND_NAME,
+        name: "TaxPreparerDirectories.com",
         item: `${siteUrl}/`,
       },
       {
@@ -137,7 +129,7 @@ export default async function CityPage({ params }: CityPageProps) {
     url: `${siteUrl}/${stateSlugNorm}/${citySlugNorm}`,
     isPartOf: {
       "@type": "WebSite",
-      name: DIRECTORY_BRAND_NAME,
+      name: "TaxPreparerDirectories.com",
       url: `${siteUrl}/`,
     },
     about: [
@@ -147,7 +139,7 @@ export default async function CityPage({ params }: CityPageProps) {
       },
       {
         "@type": "Thing",
-        name: `${stateName} tax preparation listings`,
+        name: `${stateName} tax preparer listings`,
       },
       ...taxPreparerCategorySchemaThings(),
     ],
@@ -169,19 +161,20 @@ export default async function CityPage({ params }: CityPageProps) {
       />
       <header className="space-y-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
-          Listings by city
+          Tax preparers by city
         </p>
         <h1 className="text-3xl font-semibold text-navy">
           Tax Preparers in {cityName}, {stateName}
         </h1>
         <p className="max-w-2xl text-sm text-slate-600">
-          {cityName} has {facilities.length.toLocaleString()} verified listings{" "}
-          {careTypesClause}. Browse all options below, each with Google Maps profile
-          links and ratings data where available.
+          {cityName} has {facilities.length.toLocaleString()} verified tax preparer
+          listings {careTypesClause}. Browse all options below, each with
+          Google Maps profile links and ratings data where available.
         </p>
         <p className="max-w-2xl text-sm text-slate-600">
-          Compare firms side by side, review services and contact details, and find the
-          right tax preparer for you in {stateName}.
+          Compare providers side by side, review services and contact details,
+          and find the right tax preparer for your family in{" "}
+          {stateName}.
         </p>
       </header>
 
@@ -211,13 +204,13 @@ export default async function CityPage({ params }: CityPageProps) {
 
       <section className="mt-8 space-y-4">
         <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-navy">
-          Listings in {cityName}
+          Tax preparers in {cityName}
         </h2>
 
         {facilities.length === 0 ? (
           <p className="text-sm text-slate-600">
-            We don&apos;t have listings for {cityName}, {stateName} yet. As new data
-            becomes available, listings will appear here.
+            We don&apos;t have tax preparers listed for {cityName}, {stateName} yet.
+            As new data becomes available, listings will appear here.
           </p>
         ) : (
           <div className="grid gap-4 md:grid-cols-2">
@@ -249,7 +242,7 @@ export default async function CityPage({ params }: CityPageProps) {
                 <p className="font-medium">{city.cityName}</p>
                 <p className="text-xs text-slate-600">
                   {city.facilityCount.toLocaleString()}{" "}
-                  {city.facilityCount === 1 ? "listing" : "listings"}
+                  {city.facilityCount === 1 ? "tax preparer" : "tax preparers"}
                 </p>
               </Link>
             ))}

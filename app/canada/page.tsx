@@ -4,14 +4,13 @@ import {
   getCanadaDirectoryIndex,
   getCanadaNationwideStats,
 } from "@/lib/canadaFacilities";
-import { DIRECTORY_BRAND_NAME } from "@/lib/careTypesProse";
 
 export async function generateMetadata(): Promise<Metadata> {
   const stats = getCanadaNationwideStats();
   const total = stats.totalFacilities.toLocaleString();
   const provinces = stats.provinceCount.toLocaleString();
-  const title = `Tax Preparers in Canada | ${total} verified listings | ${DIRECTORY_BRAND_NAME}`;
-  const description = `Browse ${total} verified tax preparation listings across ${provinces} provinces and territories—maps, contact info, and Google ratings. Every listing rated 3 stars or higher on Google Maps.`;
+  const title = `Tax Preparers in Canada | ${total} verified listings | Tax Preparer Directories`;
+  const description = `Browse ${total} verified tax preparers across ${provinces} provinces and territories—maps, contact info, and Google ratings. Every listing rated 3 stars or higher on Google Maps.`;
 
   return {
     title,
@@ -23,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url: "/canada",
-      siteName: DIRECTORY_BRAND_NAME,
+      siteName: "TaxPreparerDirectories.com",
       type: "website",
       images: [
         {
@@ -39,61 +38,58 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CanadaLandingPage() {
   const directory = await getCanadaDirectoryIndex();
-  const caNationwide = getCanadaNationwideStats();
+  const stats = getCanadaNationwideStats();
 
   return (
     <div className="bg-surface-muted text-foreground">
       <section className="bg-surface">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
           <div className="space-y-6 rounded-2xl bg-navy px-6 py-8 text-white shadow-sm sm:px-8 sm:py-10">
-            <p className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] backdrop-blur-sm">
-              Canadian tax preparer directories
+            <p className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm">
+              Canadian Tax Preparer Directories
             </p>
             <h1 className="text-balance text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
               Tax Preparers in Canada — Province by Province
             </h1>
-            <p className="max-w-2xl text-balance text-sm sm:text-base text-white/85">
-              Verified tax preparation listings across provinces and territories. Every
-              listing rated 3★ or higher on Google Maps.
+            <p className="max-w-2xl text-balance text-sm sm:text-base text-white/90">
+              Verified tax preparers across provinces and territories.
+              Every listing rated 3★ or higher on Google Maps.
             </p>
           </div>
 
-          <section
-            aria-label="Canada directory statistics"
-            className="w-full rounded-2xl border border-teal/25 bg-surface p-5 shadow-sm sm:p-6"
-          >
-            <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="rounded-xl border border-teal/25 bg-surface-muted p-4 text-center shadow-sm">
+          <section className="w-full rounded-2xl border-2 border-teal/30 bg-teal/10 p-6 shadow-sm">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-xl border-2 border-teal/30 bg-surface p-4 text-center shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-wide text-teal">
-                  Provinces &amp; territories
+                  Verified tax preparers
                 </p>
-                <p className="mt-2 text-2xl font-semibold text-foreground">
-                  {caNationwide.provinceCount.toLocaleString()}
+                <p className="mt-2 text-2xl font-semibold text-navy">
+                  {stats.totalFacilities.toLocaleString()}
                 </p>
               </div>
-              <div className="rounded-xl border border-teal/25 bg-surface-muted p-4 text-center shadow-sm">
+              <div className="rounded-xl border-2 border-teal/30 bg-surface p-4 text-center shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-wide text-teal">
-                  Verified listings
+                  Provinces and territories
                 </p>
-                <p className="mt-2 text-2xl font-semibold text-foreground">
-                  {caNationwide.totalFacilities.toLocaleString()}
+                <p className="mt-2 text-2xl font-semibold text-navy">
+                  {stats.provinceCount.toLocaleString()}
                 </p>
               </div>
-              <div className="rounded-xl border border-teal/25 bg-surface-muted p-4 text-center shadow-sm">
+              <div className="rounded-xl border-2 border-teal/30 bg-surface p-4 text-center shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-wide text-teal">
                   Cities covered
                 </p>
-                <p className="mt-2 text-2xl font-semibold text-foreground">
-                  {caNationwide.totalCities.toLocaleString()}
+                <p className="mt-2 text-2xl font-semibold text-navy">
+                  {stats.totalCities.toLocaleString()}
                 </p>
               </div>
-              <div className="rounded-xl border border-teal/25 bg-surface-muted p-4 text-center shadow-sm">
+              <div className="rounded-xl border-2 border-teal/30 bg-surface p-4 text-center shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-wide text-teal">
                   Average rating
                 </p>
-                <p className="mt-2 text-2xl font-semibold text-foreground">
-                  {caNationwide.averageRating != null
-                    ? `${caNationwide.averageRating}★`
+                <p className="mt-2 text-2xl font-semibold text-navy">
+                  {stats.averageRating != null
+                    ? `${stats.averageRating}★`
                     : "—"}
                 </p>
               </div>
@@ -105,8 +101,8 @@ export default async function CanadaLandingPage() {
               Choose a province
             </h2>
             <p className="mt-2 text-sm text-foreground/90">
-              Browse verified listings by province, then drill down by city to compare
-              services and contact details.
+              Browse verified tax preparers by province, then drill down
+              by city to compare services and contact details.
             </p>
             <p className="mt-2 text-sm font-medium text-foreground">
               {directory.map((item) => item.provinceName).join(" • ")}
@@ -120,14 +116,14 @@ export default async function CanadaLandingPage() {
                 >
                   <p className="text-lg font-semibold">{item.provinceName}</p>
                   <p className="mt-1 text-sm text-gold-soft">
-                    {item.provinceName} — {item.totalFacilities.toLocaleString()} listings
+                    {item.provinceName} — {item.totalFacilities.toLocaleString()} tax preparers
                   </p>
                 </Link>
               ))}
             </div>
             <p className="mt-4 text-sm font-medium text-foreground">
-              Each province has its own dedicated directory — specific firms, specific
-              cities, built for that province only.
+              Each province has its own dedicated directory — specific
+              tax preparers, specific cities, built for that province only.
             </p>
           </div>
         </div>
