@@ -60,7 +60,7 @@ export default async function RootLayout({
         {/* Google tag (gtag.js) */}
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-E8PC7Q3FTQ"
+          src="https://www.googletagmanager.com/gtag/js?id=G-5W2TVTFZEJ"
         />
         <script
           dangerouslySetInnerHTML={{
@@ -68,7 +68,7 @@ export default async function RootLayout({
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-E8PC7Q3FTQ');
+  gtag('config', 'G-5W2TVTFZEJ');
 `,
           }}
         />
@@ -88,9 +88,9 @@ export default async function RootLayout({
                 <Link
                   href="/"
                   className="text-[11px] font-bold tracking-[0.28em] sm:text-xs text-white hover:text-gold-soft transition-colors"
-                  aria-label="FuneralDirectories.com – go to homepage"
+                  aria-label="TaxPreparerDirectories.com – go to homepage"
                 >
-                  FUNERALDIRECTORIES.COM
+                  TAXPREPARERDIRECTORIES.COM
                 </Link>
                 <nav className="flex items-center gap-4" aria-label="Main navigation">
                   <Link
@@ -126,7 +126,7 @@ export default async function RootLayout({
                 </nav>
               </div>
               <p className="ml-4 hidden max-w-xs text-right text-xs text-gold-soft sm:block">
-                Trusted funeral home directory for families comparing local providers.
+                Trusted tax preparer directory for clients choosing professional help at tax time.
               </p>
             </div>
           </header>
@@ -206,7 +206,7 @@ export default async function RootLayout({
           <footer className="w-full border-t border-white/15 bg-navy">
             <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 text-xs text-white/80 sm:px-6 lg:px-8">
               <p>
-                © {new Date().getFullYear()} FuneralDirectories.com. For
+                © {new Date().getFullYear()} TaxPreparerDirectories.com. For
                 informational purposes only – always verify credentials and
                 services directly with the funeral home.
               </p>
@@ -224,7 +224,7 @@ export default async function RootLayout({
                   Advertise
                 </Link>
                 <Link href="/advertise" className="hover:text-gold">
-                  For Funeral Homes
+                  For Tax Preparers
                 </Link>
                 <Link href="/advertise" className="hover:text-gold">
                   Featured Listing
