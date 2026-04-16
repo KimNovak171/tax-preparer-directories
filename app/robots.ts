@@ -8,7 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://tattooshopdirectories.com/sitemap.xml",
+    sitemap: "https://taxpreparerdirectories.com/sitemap.xml",
   };
 }
-

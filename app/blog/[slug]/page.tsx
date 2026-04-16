@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPostSlugs } from "@/lib/blog";
+import { DIRECTORY_BRAND_NAME } from "@/lib/careTypesProse";
 
-const siteUrl = "https://tattooshopdirectories.com";
+const siteUrl = "https://taxpreparerdirectories.com";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -39,7 +40,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.description,
       url: canonicalPath,
-      siteName: "TattooShopDirectories.com",
+      siteName: DIRECTORY_BRAND_NAME,
       type: "article",
       publishedTime: post.date,
     },

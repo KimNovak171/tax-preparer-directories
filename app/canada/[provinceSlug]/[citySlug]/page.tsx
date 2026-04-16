@@ -7,11 +7,12 @@ import {
   getOtherCitiesInProvince,
 } from "@/lib/canadaFacilities";
 import {
-  DEFAULT_TATTOO_CARE_TYPES_SENTENCE,
-  tattooCategorySchemaThings,
+  DIRECTORY_BRAND_NAME,
+  formatCareTypesClause,
+  taxPreparerCategorySchemaThings,
 } from "@/lib/careTypesProse";
 
-const siteUrl = "https://tattooshopdirectories.com";
+const siteUrl = "https://taxpreparerdirectories.com";
 
 type CanadaCityPageProps = {
   params: Promise<{ provinceSlug: string; citySlug: string }>;
@@ -28,8 +29,8 @@ export async function generateMetadata({
   const { provinceName, cityName, facilities: cityFacilities } =
     await getCanadaCityFacilities(safeProvince, safeCity);
   const count = Array.isArray(cityFacilities) ? cityFacilities.length : 0;
-  const title = `Tattoo Shops in ${cityName}, ${provinceName}, Canada | Tattoo Shop Directories`;
-  const description = `Find ${count.toLocaleString()} tattoo shops in ${cityName}, ${provinceName}. Compare services and contact details. Verified listings with ratings and reviews.`;
+  const title = `Tax Preparers in ${cityName}, ${provinceName}, Canada | ${DIRECTORY_BRAND_NAME}`;
+  const description = `Find ${count.toLocaleString()} tax preparation listings in ${cityName}, ${provinceName}. Compare services and contact details. Verified listings with ratings and reviews.`;
 
   return {
     title,
@@ -41,14 +42,14 @@ export async function generateMetadata({
       title,
       description,
       url: canonicalPath,
-      siteName: "TattooShopDirectories.com",
+      siteName: DIRECTORY_BRAND_NAME,
       type: "website",
       images: [
         {
           url: "/og-image.svg",
           width: 1200,
           height: 630,
-          alt: `${cityName}, ${provinceName} tattoo shop directory preview`,
+          alt: `${cityName}, ${provinceName} tax preparer directory preview`,
         },
       ],
     },
@@ -95,10 +96,7 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
         .filter(Boolean),
     ),
   );
-  const careTypesText =
-    careTypes.length > 0
-      ? careTypes.slice(0, 4).join(", ")
-      : DEFAULT_TATTOO_CARE_TYPES_SENTENCE;
+  const careTypesClause = formatCareTypesClause(careTypes);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -107,7 +105,7 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "TattooShopDirectories.com",
+        name: DIRECTORY_BRAND_NAME,
         item: `${siteUrl}/`,
       },
       {
@@ -134,17 +132,17 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
   const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `Tattoo Shops in ${cityName}, ${provinceName}, Canada`,
+    name: `Tax Preparers in ${cityName}, ${provinceName}, Canada`,
     url: `${siteUrl}/canada/${provinceSlugNorm}/${citySlugNorm}`,
     isPartOf: {
       "@type": "WebSite",
-      name: "TattooShopDirectories.com",
+      name: DIRECTORY_BRAND_NAME,
       url: `${siteUrl}/`,
     },
     about: [
-      { "@type": "Thing", name: `${cityName} tattoo shops` },
-      { "@type": "Thing", name: `${provinceName} tattoo shop listings` },
-      ...tattooCategorySchemaThings(),
+      { "@type": "Thing", name: `${cityName} tax preparers` },
+      { "@type": "Thing", name: `${provinceName} tax preparation listings` },
+      ...taxPreparerCategorySchemaThings(),
     ],
     speakable: {
       "@type": "SpeakableSpecification",
@@ -164,20 +162,19 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
       />
       <header className="space-y-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
-          Shops by city
+          Listings by city
         </p>
         <h1 className="text-3xl font-semibold text-navy">
-          Tattoo Shops in {cityName}, {provinceName}
+          Tax Preparers in {cityName}, {provinceName}
         </h1>
         <p className="max-w-2xl text-sm text-slate-600">
-          {cityName} has {facilities.length.toLocaleString()} verified
-          shop listings including {careTypesText}. Browse all options below,
-          each with Google Maps profile links and ratings data where available.
+          {cityName} has {facilities.length.toLocaleString()} verified listings{" "}
+          {careTypesClause}. Browse all options below, each with Google Maps profile
+          links and ratings data where available.
         </p>
         <p className="max-w-2xl text-sm text-slate-600">
-          Compare shops side by side, review services and contact
-          details, and share this page with friends or family as you plan
-          your next visit in {provinceName}.
+          Compare firms side by side, review services and contact details, and plan
+          your next step in {provinceName}.
         </p>
       </header>
 
@@ -213,13 +210,13 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
 
       <section className="mt-8 space-y-4">
         <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-navy">
-          Shops in {cityName}
+          Listings in {cityName}
         </h2>
 
         {facilities.length === 0 ? (
           <p className="text-sm text-slate-600">
-            We don&apos;t have listings for {cityName}, {provinceName}{" "}
-            yet. As new data becomes available, shops will appear here.
+            We don&apos;t have listings for {cityName}, {provinceName} yet. As new
+            data becomes available, listings will appear here.
           </p>
         ) : (
           <div className="grid gap-4 md:grid-cols-2">
@@ -248,7 +245,7 @@ export default async function CanadaCityPage({ params }: CanadaCityPageProps) {
                 <p className="font-medium">{city.cityName}</p>
                 <p className="text-xs text-slate-600">
                   {city.facilityCount.toLocaleString()}{" "}
-                  {city.facilityCount === 1 ? "shop" : "shops"}
+                  {city.facilityCount === 1 ? "listing" : "listings"}
                 </p>
               </Link>
             ))}

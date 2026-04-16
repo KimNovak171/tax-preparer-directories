@@ -1,37 +1,43 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  DIRECTORY_BRAND_NAME,
+  DIRECTORY_SUPPORT_EMAIL,
+} from "@/lib/careTypesProse";
 
 export const metadata: Metadata = {
-  title: "Advertise | Get Your Shop in Front of Clients",
+  title: "Advertise | Get Your Firm in Front of Clients",
   description:
-    "Featured and premium listings on TattooShopDirectories.com. Reach clients actively searching for tattoo shops, tattoo artists, tattoos, and body art across the United States.",
+    `Featured and premium listings on ${DIRECTORY_BRAND_NAME}. Reach clients actively searching for tax preparation services, CPAs, and enrolled agents across the United States.`,
   alternates: {
     canonical: "/advertise",
     languages: {
-      "en-us": "https://tattooshopdirectories.com/advertise",
+      "en-us": "https://taxpreparerdirectories.com/advertise",
     },
   },
   openGraph: {
-    title: "Advertise | Get Your Shop in Front of Clients",
+    title: "Advertise | Get Your Firm in Front of Clients",
     description:
-      "A featured listing puts your shop at the top of your city directory section and in front of high-intent visitors at the moment they are choosing a tattoo shop or tattoo artist.",
+      "A featured listing puts your practice at the top of your city directory section in front of visitors comparing tax preparers and tax preparation options.",
     url: "/advertise",
-    siteName: "TattooShopDirectories.com",
+    siteName: DIRECTORY_BRAND_NAME,
     type: "website",
     images: [
       {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "TattooShopDirectories.com advertise preview",
+        alt: `${DIRECTORY_BRAND_NAME} advertise preview`,
       },
     ],
   },
 };
 
-const siteUrl = "https://tattooshopdirectories.com";
-const STRIPE_LINK_49 = "https://buy.stripe.com/9B63cvb2qcXZdgq2f7fAc0G";
-const STRIPE_LINK_99 = "https://buy.stripe.com/3cI5kD6Ma1fha4e06ZfAc0H";
+const siteUrl = "https://taxpreparerdirectories.com";
+const STRIPE_LINK_FEATURED =
+  "https://buy.stripe.com/eVqdR92vU5vx2BM2f7fAc0M";
+const STRIPE_LINK_PREMIUM =
+  "https://buy.stripe.com/eVq8wP9YmbTV3FQ6vnfAc0N";
 
 export default function AdvertisePage() {
   const breadcrumbSchema = {
@@ -41,7 +47,7 @@ export default function AdvertisePage() {
       {
         "@type": "ListItem",
         position: 1,
-        name: "TattooShopDirectories.com",
+        name: DIRECTORY_BRAND_NAME,
         item: `${siteUrl}/`,
       },
       {
@@ -62,16 +68,16 @@ export default function AdvertisePage() {
 
       <header className="space-y-3">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
-          For Shop Owners
+          For tax preparers &amp; firms
         </p>
         <h1 className="text-3xl font-semibold text-navy sm:text-4xl">
-          Get Your Shop in Front of Clients Who Are Ready to Book
+          Get Your Listing in Front of Clients Who Need Tax Help
         </h1>
         <p className="max-w-3xl text-sm text-slate-600">
-          TattooShopDirectories.com is visited by clients actively searching for
-          tattoo shops, tattoo artists, tattoos, and body art across the United States. A featured listing puts
-          your shop at the top of your city directory section and in front of
-          high-intent visitors at the moment they are choosing a tattoo shop or tattoo artist.
+          {DIRECTORY_BRAND_NAME} is visited by individuals and businesses actively
+          searching for tax preparation services, CPAs, and enrolled agents across
+          the United States. A featured or premium listing highlights your practice
+          when prospects compare local options.
         </p>
       </header>
 
@@ -80,6 +86,12 @@ export default function AdvertisePage() {
           <h2 className="text-lg font-semibold text-navy">
             Featured Listing — $49/month
           </h2>
+          <p className="mt-4 text-sm text-slate-600">
+            Get your business featured at the top of your city directory page on{" "}
+            {DIRECTORY_BRAND_NAME}. Your listing appears above standard listings with
+            a Featured badge, giving you maximum visibility to customers actively
+            searching for tax preparation services in your area. Cancel anytime.
+          </p>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
             <li>Priority placement at the top of your city directory section</li>
             <li>Featured badge on your listing</li>
@@ -87,7 +99,7 @@ export default function AdvertisePage() {
             <li>Cancel anytime</li>
           </ul>
           <a
-            href={STRIPE_LINK_49}
+            href={STRIPE_LINK_FEATURED}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-teal px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
@@ -99,15 +111,21 @@ export default function AdvertisePage() {
           <h2 className="text-lg font-semibold text-navy">
             Premium Listing — $99/month
           </h2>
+          <p className="mt-4 text-sm text-slate-600">
+            Get everything included in the Featured listing, plus prominent placement
+            in the Featured Tax Preparers section on your state directory page, your
+            business logo or photo displayed on your listing, and a custom tagline of
+            up to 25 words. Cancel anytime.
+          </p>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
             <li>Everything in Featured</li>
-            <li>Included in the Featured Shops section on the homepage</li>
-            <li>Your shop logo or photo displayed</li>
-            <li>Custom tagline (up to 60 words)</li>
+            <li>Featured Tax Preparers section on the state directory page</li>
+            <li>Your firm logo or photo displayed</li>
+            <li>Custom tagline (up to 25 words)</li>
             <li>Cancel anytime</li>
           </ul>
           <a
-            href={STRIPE_LINK_99}
+            href={STRIPE_LINK_PREMIUM}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-teal px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
@@ -121,10 +139,10 @@ export default function AdvertisePage() {
         <p className="text-sm text-slate-700">
           To get started or ask questions, contact us at{" "}
           <a
-            href="mailto:hello@directoriesnetwork.com"
+            href={`mailto:${DIRECTORY_SUPPORT_EMAIL}`}
             className="font-medium text-teal underline underline-offset-2 hover:text-teal-soft"
           >
-            hello@directoriesnetwork.com
+            {DIRECTORY_SUPPORT_EMAIL}
           </a>{" "}
           — we&apos;ll have your listing live within 24 hours.
         </p>

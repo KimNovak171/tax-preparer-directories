@@ -549,7 +549,7 @@ export function getGlobalStats(): GlobalStats {
 
 export function getStateResourcesUrl(stateSlug: string): string {
   void stateSlug;
-  return "https://www.safepiercing.org";
+  return "https://www.irs.gov/tax-professionals";
 }
 
 export function getHreflangForRegionSlug(

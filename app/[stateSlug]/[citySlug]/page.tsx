@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FacilityCard } from "@/components/FacilityCard";
-import { formatCareTypesClause } from "@/lib/careTypesProse";
+import {
+  DIRECTORY_BRAND_NAME,
+  formatCareTypesClause,
+  taxPreparerCategorySchemaThings,
+} from "@/lib/careTypesProse";
 import {
   getCityFacilities,
   getDirectoryIndex,
   getHreflangForRegionSlug,
   getOtherCitiesInState,
 } from "@/lib/stateFacilities";
-import { tattooCategorySchemaThings } from "@/lib/careTypesProse";
 
-const siteUrl = "https://tattooshopdirectories.com";
+const siteUrl = "https://taxpreparerdirectories.com";
 
 type CityPageProps = {
   params: Promise<{ stateSlug: string; citySlug: string }>;
@@ -29,8 +32,8 @@ export async function generateMetadata({
   const { stateName, cityName, facilities: cityFacilities } =
     await getCityFacilities(safeState, safeCity);
   const count = Array.isArray(cityFacilities) ? cityFacilities.length : 0;
-  const title = `Tattoo Shops in ${cityName}, ${stateName} | Tattoo Shop Directories`;
-  const description = `Find trusted tattoo shops and tattoo artists in ${cityName}, ${stateName}—browse ${count.toLocaleString()} verified listings with contact details, maps, and Google ratings so you can choose with confidence.`;
+  const title = `Tax Preparers in ${cityName}, ${stateName} | ${DIRECTORY_BRAND_NAME}`;
+  const description = `Find trusted tax preparers and tax professionals in ${cityName}, ${stateName}—browse ${count.toLocaleString()} verified listings with contact details, maps, and Google ratings so you can choose with confidence.`;
 
   return {
     title,
@@ -45,14 +48,14 @@ export async function generateMetadata({
       title,
       description,
       url: canonicalPath,
-      siteName: "TattooShopDirectories.com",
+      siteName: DIRECTORY_BRAND_NAME,
       type: "website",
       images: [
         {
           url: "/og-image.svg",
           width: 1200,
           height: 630,
-          alt: `${cityName}, ${stateName} tattoo shop directory preview`,
+          alt: `${cityName}, ${stateName} tax preparer directory preview`,
         },
       ],
     },
@@ -109,7 +112,7 @@ export default async function CityPage({ params }: CityPageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "TattooShopDirectories.com",
+        name: DIRECTORY_BRAND_NAME,
         item: `${siteUrl}/`,
       },
       {
@@ -130,23 +133,23 @@ export default async function CityPage({ params }: CityPageProps) {
   const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `Tattoo Shops in ${cityName}, ${stateName}`,
+    name: `Tax Preparers in ${cityName}, ${stateName}`,
     url: `${siteUrl}/${stateSlugNorm}/${citySlugNorm}`,
     isPartOf: {
       "@type": "WebSite",
-      name: "TattooShopDirectories.com",
+      name: DIRECTORY_BRAND_NAME,
       url: `${siteUrl}/`,
     },
     about: [
       {
         "@type": "Thing",
-        name: `${cityName} tattoo shops`,
+        name: `${cityName} tax preparers`,
       },
       {
         "@type": "Thing",
-        name: `${stateName} tattoo shop listings`,
+        name: `${stateName} tax preparation listings`,
       },
-      ...tattooCategorySchemaThings(),
+      ...taxPreparerCategorySchemaThings(),
     ],
     speakable: {
       "@type": "SpeakableSpecification",
@@ -166,20 +169,19 @@ export default async function CityPage({ params }: CityPageProps) {
       />
       <header className="space-y-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
-          Shops by city
+          Listings by city
         </p>
         <h1 className="text-3xl font-semibold text-navy">
-          Tattoo Shops in {cityName}, {stateName}
+          Tax Preparers in {cityName}, {stateName}
         </h1>
         <p className="max-w-2xl text-sm text-slate-600">
-          {cityName} has {facilities.length.toLocaleString()} verified shop
-          listings {careTypesClause}. Browse all options below, each with
-          Google Maps profile links and ratings data where available.
+          {cityName} has {facilities.length.toLocaleString()} verified listings{" "}
+          {careTypesClause}. Browse all options below, each with Google Maps profile
+          links and ratings data where available.
         </p>
         <p className="max-w-2xl text-sm text-slate-600">
-          Compare shops side by side, review services and contact details,
-          and find the right tattoo artist or studio for you in{" "}
-          {stateName}.
+          Compare firms side by side, review services and contact details, and find the
+          right tax preparer for you in {stateName}.
         </p>
       </header>
 
@@ -209,13 +211,13 @@ export default async function CityPage({ params }: CityPageProps) {
 
       <section className="mt-8 space-y-4">
         <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-navy">
-          Shops in {cityName}
+          Listings in {cityName}
         </h2>
 
         {facilities.length === 0 ? (
           <p className="text-sm text-slate-600">
-            We don&apos;t have shops listed for {cityName}, {stateName} yet.
-            As new data becomes available, listings will appear here.
+            We don&apos;t have listings for {cityName}, {stateName} yet. As new data
+            becomes available, listings will appear here.
           </p>
         ) : (
           <div className="grid gap-4 md:grid-cols-2">
@@ -247,7 +249,7 @@ export default async function CityPage({ params }: CityPageProps) {
                 <p className="font-medium">{city.cityName}</p>
                 <p className="text-xs text-slate-600">
                   {city.facilityCount.toLocaleString()}{" "}
-                  {city.facilityCount === 1 ? "shop" : "shops"}
+                  {city.facilityCount === 1 ? "listing" : "listings"}
                 </p>
               </Link>
             ))}

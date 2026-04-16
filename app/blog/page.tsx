@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
+import { DIRECTORY_BRAND_NAME } from "@/lib/careTypesProse";
 
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Guides and articles on choosing tattoo shops, booking appointments, aftercare, styles, and more from TattooShopDirectories.com.",
+    `Guides and articles on choosing a tax preparer, understanding deadlines, deductions, and filing tips from ${DIRECTORY_BRAND_NAME}.`,
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Blog | TattooShopDirectories.com",
+    title: `Blog | ${DIRECTORY_BRAND_NAME}`,
     url: "/blog",
-    siteName: "TattooShopDirectories.com",
+    siteName: DIRECTORY_BRAND_NAME,
     type: "website",
   },
 };
@@ -42,8 +43,8 @@ export default function BlogIndexPage() {
           Articles &amp; guides
         </h1>
         <p className="max-w-3xl text-sm text-slate-600">
-          Practical tips on finding shops and artists, booking, aftercare, and
-          tattoo culture—written for clients navigating their next piece.
+          Practical tips on finding qualified preparers, organizing documents, and
+          planning ahead for tax season—written for individuals and small businesses.
         </p>
       </header>
 

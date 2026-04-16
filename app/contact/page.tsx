@@ -1,36 +1,50 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "./ContactForm";
+import {
+  DIRECTORY_BRAND_NAME,
+  DIRECTORY_SUPPORT_EMAIL,
+} from "@/lib/careTypesProse";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Tattoo Shop Directories",
+  title: `Contact Us | ${DIRECTORY_BRAND_NAME}`,
   description:
-    "Get in touch with TattooShopDirectories.com. Send a message or email hello@directoriesnetwork.com for questions about our directory or featured listings.",
+    `Get in touch with ${DIRECTORY_BRAND_NAME}. Send a message or email ${DIRECTORY_SUPPORT_EMAIL} for questions about our directory or featured listings.`,
   alternates: {
     canonical: "/contact",
     languages: {
-      "en-us": "https://tattooshopdirectories.com/contact",
+      "en-us": "https://taxpreparerdirectories.com/contact",
     },
   },
   openGraph: {
-    title: "Contact Us | Tattoo Shop Directories",
+    title: `Contact Us | ${DIRECTORY_BRAND_NAME}`,
     description:
-      "Contact TattooShopDirectories.com for questions about our directory or featured listings.",
+      `Contact ${DIRECTORY_BRAND_NAME} for questions about our directory or featured listings.`,
     url: "/contact",
-    siteName: "TattooShopDirectories.com",
+    siteName: DIRECTORY_BRAND_NAME,
     type: "website",
   },
 };
 
-const siteUrl = "https://tattooshopdirectories.com";
+const siteUrl = "https://taxpreparerdirectories.com";
 
 export default function ContactPage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "TattooShopDirectories.com", item: `${siteUrl}/` },
-      { "@type": "ListItem", position: 2, name: "Contact", item: `${siteUrl}/contact` },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: DIRECTORY_BRAND_NAME,
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Contact",
+        item: `${siteUrl}/contact`,
+      },
     ],
   };
 
@@ -49,13 +63,13 @@ export default function ContactPage() {
           Contact Us
         </h1>
         <p className="max-w-3xl text-sm text-slate-600">
-          Have a question about our directory, a listing, or featured placement?
-          Use the form below or email us directly at{" "}
+          Have a question about our directory, a listing, or featured placement? Use
+          the form below or email us directly at{" "}
           <a
-            href="mailto:hello@directoriesnetwork.com"
+            href={`mailto:${DIRECTORY_SUPPORT_EMAIL}`}
             className="font-medium text-teal underline underline-offset-2 hover:text-teal-soft"
           >
-            hello@directoriesnetwork.com
+            {DIRECTORY_SUPPORT_EMAIL}
           </a>
           .
         </p>
@@ -69,10 +83,10 @@ export default function ContactPage() {
         <p className="text-sm font-medium text-navy">Email us directly</p>
         <p className="mt-1 text-sm text-slate-700">
           <a
-            href="mailto:hello@directoriesnetwork.com"
+            href={`mailto:${DIRECTORY_SUPPORT_EMAIL}`}
             className="font-medium text-teal underline underline-offset-2 hover:text-teal-soft"
           >
-            hello@directoriesnetwork.com
+            {DIRECTORY_SUPPORT_EMAIL}
           </a>
         </p>
       </section>

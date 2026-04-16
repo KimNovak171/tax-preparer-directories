@@ -6,11 +6,13 @@ import {
   getProvinceSummary,
 } from "@/lib/canadaFacilities";
 import {
-  DEFAULT_TATTOO_CARE_TYPES_SENTENCE,
-  tattooCategorySchemaThings,
+  DEFAULT_TAX_PREPARER_CARE_TYPES_SENTENCE,
+  DIRECTORY_BRAND_NAME,
+  formatCareTypesClause,
+  taxPreparerCategorySchemaThings,
 } from "@/lib/careTypesProse";
 
-const siteUrl = "https://tattooshopdirectories.com";
+const siteUrl = "https://taxpreparerdirectories.com";
 
 type ProvincePageProps = {
   params: Promise<{ provinceSlug: string }>;
@@ -27,8 +29,8 @@ export async function generateMetadata({
     safeSlug,
   );
 
-  const title = `Tattoo Shops in ${provinceName}, Canada | Tattoo Shop Directories`;
-  const descriptor = `Find ${totalFacilities.toLocaleString()} tattoo shops in ${provinceName}, Canada. Compare services and contact details. Verified listings with ratings and reviews.`;
+  const title = `Tax Preparers in ${provinceName}, Canada | ${DIRECTORY_BRAND_NAME}`;
+  const descriptor = `Find ${totalFacilities.toLocaleString()} tax preparation listings in ${provinceName}, Canada. Compare services and contact details. Verified listings with ratings and reviews.`;
 
   return {
     title,
@@ -40,14 +42,14 @@ export async function generateMetadata({
       title,
       description: descriptor,
       url: canonicalPath,
-      siteName: "TattooShopDirectories.com",
+      siteName: DIRECTORY_BRAND_NAME,
       type: "website",
       images: [
         {
           url: "/og-image.svg",
           width: 1200,
           height: 630,
-          alt: `${provinceName} tattoo shop directory preview`,
+          alt: `${provinceName} tax preparer directory preview`,
         },
       ],
     },
@@ -71,8 +73,8 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
     careTypes,
   } = await getProvinceSummary(provinceSlug ?? "");
 
-  const tattooFocusText =
-    "tattoo shops, tattoo and piercing shops, tattoo artists, tattoos, and body art";
+  const taxServiceFocusText =
+    "tax preparation services, CPAs, enrolled agents, accountants, and bookkeeping support";
   const majorCities = [...cities]
     .sort((a, b) => b.facilityCount - a.facilityCount)
     .slice(0, 6)
@@ -80,11 +82,10 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
   const majorCitiesText = majorCities.slice(0, 4).join(", ");
 
   const hasRating = typeof averageRating === "number";
-  const topCareTypes = careTypes.slice(0, 6);
   const careTypesSentence =
-    topCareTypes.length > 0
-      ? topCareTypes.join(", ")
-      : DEFAULT_TATTOO_CARE_TYPES_SENTENCE;
+    careTypes.length > 0
+      ? formatCareTypesClause(careTypes, 6).replace(/^including /i, "")
+      : DEFAULT_TAX_PREPARER_CARE_TYPES_SENTENCE;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -93,7 +94,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "TattooShopDirectories.com",
+        name: DIRECTORY_BRAND_NAME,
         item: `${siteUrl}/`,
       },
       {
@@ -117,7 +118,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
     mainEntity: [
       {
         "@type": "Question",
-        name: `How many tattoo shops are in ${provinceName}?`,
+        name: `How many tax preparers are listed in ${provinceName}?`,
         acceptedAnswer: {
           "@type": "Answer",
           text: `Our directory lists ${totalFacilities.toLocaleString()} verified facilities across ${cities.length.toLocaleString()} cities.`,
@@ -125,7 +126,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
       },
       {
         "@type": "Question",
-        name: `What types of tattoo and body art services are available in ${provinceName}?`,
+        name: `What types of tax and accounting services appear in ${provinceName}?`,
         acceptedAnswer: {
           "@type": "Answer",
           text: `${careTypesSentence}.`,
@@ -133,10 +134,10 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
       },
       {
         "@type": "Question",
-        name: "How are shops selected for this directory?",
+        name: "How are listings selected for this directory?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "All listings are sourced from Google Maps, verified, and must have a minimum 3-star rating.",
+          text: "Listings are sourced from Google Maps, verified, and must have a minimum 3-star rating.",
         },
       },
     ],
@@ -145,16 +146,16 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
   const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `Tattoo Shops in ${provinceName}, Canada`,
+    name: `Tax Preparers in ${provinceName}, Canada`,
     url: `${siteUrl}/canada/${resolvedProvinceSlug}`,
     isPartOf: {
       "@type": "WebSite",
-      name: "TattooShopDirectories.com",
+      name: DIRECTORY_BRAND_NAME,
       url: `${siteUrl}/`,
     },
     about: [
-      { "@type": "Thing", name: `${provinceName} tattoo shops` },
-      ...tattooCategorySchemaThings(),
+      { "@type": "Thing", name: `${provinceName} tax preparers` },
+      ...taxPreparerCategorySchemaThings(),
     ],
     speakable: {
       "@type": "SpeakableSpecification",
@@ -189,25 +190,24 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
         className="mb-4 flex items-center justify-center gap-2 rounded-full bg-teal px-5 py-3 text-center text-sm font-semibold text-white shadow-md transition hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
         aria-label="View featured listing pricing and benefits"
       >
-        Get your shop featured — view pricing &amp; benefits →
+        Get your listing featured — view pricing &amp; benefits →
       </Link>
       <section className="rounded-2xl bg-surface-muted px-5 py-6 text-foreground shadow-lg shadow-navy/10 ring-1 ring-gold/40 sm:px-8 sm:py-8">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-soft">
           Province overview
         </p>
         <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
-          Tattoo Shops in {provinceName}, Canada
+          Tax Preparers in {provinceName}, Canada
         </h1>
         <p className="mt-3 max-w-2xl text-sm text-foreground/80">
-          Explore {tattooFocusText} across {provinceName}, including major
-          city areas such as {majorCitiesText}. Use this page to find shops by
-          city.
+          Explore {taxServiceFocusText} across {provinceName}, including major city
+          areas such as {majorCitiesText}. Use this page to find listings by city.
         </p>
 
         <div className="mt-5 grid gap-4 text-sm sm:grid-cols-3">
           <div className="rounded-xl bg-surface p-4 ring-1 ring-navy/10">
             <p className="text-xs font-semibold uppercase tracking-wide text-gold-soft">
-              Shops listed
+              Listings
             </p>
             <p className="mt-1 text-2xl font-semibold">
               {totalFacilities.toLocaleString()}
@@ -243,11 +243,10 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
         return (
           <section className="mt-8 rounded-2xl border-2 border-teal/20 bg-teal/5 p-6 space-y-4">
             <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-teal border-b border-teal/40 pb-1 inline-block">
-              Top Picks in {provinceName}
+              Top picks in {provinceName}
             </h2>
             <p className="text-sm text-slate-600">
-              Featured shops in {provinceName} — verified listings with
-              priority placement.
+              Featured listings in {provinceName} — verified with priority placement.
             </p>
             <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {featuredFacilities.map((facility) => (
@@ -262,11 +261,12 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-navy border-b-2 border-teal/50 pb-1 inline-block">
-              Shops by City in {provinceName}
+              Listings by city in {provinceName}
             </h2>
             <p className="mt-1 max-w-2xl text-sm text-slate-600">
-              Choose a city to browse tattoo shops, tattoo artists, and body art studios in{" "}
-              {provinceName}, including custom tattoos, piercings, and flash work.
+              Choose a city to browse tax preparers, CPAs, and tax preparation firms in{" "}
+              {provinceName}, including individual returns, business taxes, and
+              planning support.
             </p>
           </div>
           <div className="text-xs text-slate-500">
@@ -278,8 +278,8 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
 
         {cities.length === 0 ? (
           <p className="text-sm text-slate-600">
-            We don&apos;t have shops listed for {provinceName} yet. As new data
-            becomes available, cities and listings will appear here.
+            We don&apos;t have listings for {provinceName} yet. As new data becomes
+            available, cities and listings will appear here.
           </p>
         ) : (
           <div className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
@@ -293,7 +293,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
                   <span className="font-medium">{city.cityName}</span>
                   <span className="text-xs text-slate-600 group-hover:text-navy/85">
                     {city.facilityCount.toLocaleString()}{" "}
-                    {city.facilityCount === 1 ? "shop" : "shops"}
+                    {city.facilityCount === 1 ? "listing" : "listings"}
                   </span>
                 </div>
                 {city.averageRating ? (

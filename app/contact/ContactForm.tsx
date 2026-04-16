@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { DIRECTORY_BRAND_NAME, DIRECTORY_SUPPORT_EMAIL } from "@/lib/careTypesProse";
 
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -9,11 +10,13 @@ export function ContactForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Contact from Tattoo Shop Directories: ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    const subject = encodeURIComponent(
+      `Contact from ${DIRECTORY_BRAND_NAME}: ${name}`,
     );
-    window.location.href = `mailto:hello@directoriesnetwork.com?subject=${subject}&body=${body}`;
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    );
+    window.location.href = `mailto:${DIRECTORY_SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
   };
 
   return (

@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DIRECTORY_BRAND_NAME } from "@/lib/careTypesProse";
 
 export const metadata: Metadata = {
-  title: "About This Directory | Tattoo Shop Directories",
+  title: `About This Directory | ${DIRECTORY_BRAND_NAME}`,
   description:
-    "Learn about TattooShopDirectories.com — a trusted directory helping clients compare tattoo shops, tattoo artists, tattoos, and body art across the US and Canada.",
+    `Learn about ${DIRECTORY_BRAND_NAME} — a trusted directory helping clients compare tax preparers, CPAs, enrolled agents, and tax preparation services across the US and Canada.`,
   alternates: {
     canonical: "/about",
     languages: {
-      "en-us": "https://tattooshopdirectories.com/about",
+      "en-us": "https://taxpreparerdirectories.com/about",
     },
   },
   openGraph: {
-    title: "About This Directory | Tattoo Shop Directories",
+    title: `About This Directory | ${DIRECTORY_BRAND_NAME}`,
     url: "/about",
-    siteName: "TattooShopDirectories.com",
+    siteName: DIRECTORY_BRAND_NAME,
     type: "website",
   },
 };
@@ -30,19 +31,28 @@ export default function AboutPage() {
           About This Directory
         </h1>
         <p className="max-w-3xl text-sm text-slate-600">
-          TattooShopDirectories.com is a professional, easy-to-use directory that helps clients find and compare tattoo shops across the United States and Canada.
+          {DIRECTORY_BRAND_NAME} is a professional, easy-to-use directory that helps
+          clients find and compare tax preparers and tax preparation firms across the
+          United States and Canada.
         </p>
       </header>
 
       <div className="mt-10 max-w-3xl space-y-6 text-sm text-slate-700">
         <p>
-          We list verified shops — so you can explore options by state and city, compare contact details and ratings, and make informed decisions. Our listings are sourced from public information and verified where possible; we encourage you to confirm licenses and health department rules for tattooing and piercing where applicable, and to visit shops in person when possible.
+          We list verified tax professionals — so you can explore options by state and
+          city, compare contact details and ratings, and make informed decisions. Our
+          listings are sourced from public information and verified where possible; we
+          encourage you to confirm credentials (such as PTIN, CPA license, or enrolled
+          agent status) with the IRS or your state board of accountancy where
+          applicable, and to contact firms directly before engaging services.
         </p>
         <p>
-          This site is for informational purposes only. We do not endorse any specific shop. Always verify licensing, inspections, and accreditation with the appropriate regulatory body in your area.
+          This site is for informational purposes only. We do not endorse any specific
+          preparer or firm. Always verify licensing, bonding, and professional standing
+          with the appropriate regulatory body in your area.
         </p>
         <p>
-          Shop owners can learn about featured and premium listings on our{" "}
+          Tax preparers and firms can learn about featured and premium listings on our{" "}
           <Link href="/advertise" className="font-medium text-teal hover:text-teal-soft">
             Advertise
           </Link>{" "}
