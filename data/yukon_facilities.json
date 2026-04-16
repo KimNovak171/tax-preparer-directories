@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Excellent Bookkeeping & Tax Service",
+    "category": "Tax preparation",
+    "phone": "+1 867-322-6800",
+    "website": "https://www.ebtservice.ca/",
+    "address": "2180 2Nd, Whitehorse, YT Y1A 5N6",
+    "city": "Whitehorse",
+    "state": "Yukon",
+    "state_code": "",
+    "postal_code": "Y1A 5N6",
+    "latitude": 60.7250038,
+    "longitude": -135.0571498,
+    "rating": 5.0,
+    "reviews": 39,
+    "place_id": "ChIJ38oz2hhFVFER347gHlcamnc"
+  },
+  {
+    "name": "Liberty Tax",
+    "category": "Tax preparation",
+    "phone": "+1 867-322-2785",
+    "website": "https://www.libertytaxcanada.ca/70606",
+    "address": "4201 4 Ave # 400, Whitehorse, YT Y1A 5A1",
+    "city": "Whitehorse",
+    "state": "Yukon",
+    "state_code": "",
+    "postal_code": "Y1A 5A1",
+    "latitude": 60.726405,
+    "longitude": -135.061237,
+    "rating": 3.6,
+    "reviews": 48,
+    "place_id": "ChIJdfgs2PdFVFER19hw71HA-mA"
+  },
+  {
+    "name": "Tax Planning Centre Whitehorse",
+    "category": "Tax preparation",
+    "phone": "+1 866-763-5550",
+    "website": "https://www.taxplanningcentre.com/",
+    "address": "Home office, 43 Wilson Dr, Whitehorse, YT Y1A 0C5",
+    "city": "Whitehorse",
+    "state": "Yukon",
+    "state_code": "",
+    "postal_code": "Y1A 0C5",
+    "latitude": 60.7064952,
+    "longitude": -135.1051135,
+    "rating": 4.0,
+    "reviews": 4,
+    "place_id": "ChIJa1E5b8NFVFERBVxSCasyGLY"
+  }
+]

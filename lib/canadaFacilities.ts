@@ -4,12 +4,12 @@ import path from "path";
 
 /**
  * All 13 Canadian provinces & territories are enumerated in `ALL_CANADA_PROVINCE_SLUGS`.
- * `discoverCanadaProvinceSlugsFromData()` finds which `data/{slug}_facilities.json` files exist
- * and loads each in one batch (`readFileSync` + try/catch → [] per file).
+ * Each slug is loaded in one batch at module init via `loadCanadaProvinceRawArray` (`readFileSync`
+ * + try/catch → `[]` when the file is missing or invalid).
  *
  * Maps URLs (CRITICAL):
- * - With non-empty `place_id`: `https://www.google.com/maps/place/?q=place_id:` + encoded place_id value.
- * - If `place_id` is missing or empty: `https://www.google.com/maps/search/?api=1&query=` + encoded full address.
+ * - With non-empty `place_id`: `https://www.google.com/maps/place/?q=place_id:{place_id}` (value used directly).
+ * - If `place_id` is missing or empty: `https://www.google.com/maps/search/?api=1&query=` + URL-encoded full address.
  *
  * Homepage and `/canada` use `getCanadaNationwideStats()` / `getCanadaDirectoryIndex()` (derived from
  * `PROVINCE_DATA` at module load).
@@ -29,24 +29,6 @@ const ALL_CANADA_PROVINCE_SLUGS = [
   "saskatchewan",
   "yukon",
 ] as const;
-
-const CANADA_SLUG_SET = new Set<string>(ALL_CANADA_PROVINCE_SLUGS);
-
-function discoverCanadaProvinceSlugsFromData(): string[] {
-  const dataDir = path.join(process.cwd(), "data");
-  let entries: string[] = [];
-  try {
-    entries = fs.readdirSync(dataDir);
-  } catch {
-    return [];
-  }
-  const suffix = "_facilities.json";
-  return entries
-    .filter((name) => name.endsWith(suffix))
-    .map((name) => name.slice(0, -suffix.length))
-    .filter((slug) => slug.length > 0 && CANADA_SLUG_SET.has(slug))
-    .sort((a, b) => a.localeCompare(b));
-}
 
 const PROVINCE_DISPLAY_NAMES: Record<string, string> = {
   alberta: "Alberta",
@@ -182,7 +164,7 @@ function buildCanadaMapsUrl(
 ): string | undefined {
   const pid = (placeId ?? "").trim();
   if (pid) {
-    return `https://www.google.com/maps/place/?q=place_id:${encodeURIComponent(pid)}`;
+    return `https://www.google.com/maps/place/?q=place_id:${pid}`;
   }
   const addr = fullAddress.trim();
   if (addr) {
@@ -247,7 +229,7 @@ function transformCanadaFacilities(
 }
 
 const PROVINCE_DATA: Record<string, CanadaRawFacility[]> = {};
-for (const slug of discoverCanadaProvinceSlugsFromData()) {
+for (const slug of ALL_CANADA_PROVINCE_SLUGS) {
   const raw = loadCanadaProvinceRawArray(slug);
   const provinceName =
     (raw[0]?.province ?? raw[0]?.state ?? "").trim() ||
@@ -285,7 +267,9 @@ export function getCanadaNationwideStats(): {
   averageRating: number | null;
 } {
   const { totalFacilities, totalCities, ratings } = getCanadaStatsForGlobal();
-  const provinceCount = Object.keys(PROVINCE_DATA).length;
+  const provinceCount = Object.values(PROVINCE_DATA).filter(
+    (rows) => rows.length > 0,
+  ).length;
   const averageRating =
     ratings.length > 0
       ? Number(
@@ -459,6 +443,7 @@ export async function getCanadaDirectoryIndex(): Promise<CanadaDirectoryItem[]> 
   const result: CanadaDirectoryItem[] = [];
   for (const slug of slugs) {
     const summary = await getProvinceSummary(slug);
+    if (summary.totalFacilities === 0) continue;
     result.push({
       provinceSlug: summary.provinceSlug,
       provinceName: summary.provinceName,
