@@ -101,56 +101,56 @@ export default async function Home() {
                       : "lg:grid-cols-4"
                   }`}
                 >
-                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                  <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+                    <p className="text-teal text-xs font-semibold uppercase tracking-wide">
                       Verified listings
                     </p>
-                    <p className="mt-2 text-2xl font-semibold text-white">
+                    <p className="mt-2 text-navy text-2xl font-bold">
                       {globalStats.totalFacilities.toLocaleString()}
                     </p>
                     {canadaNationwide.totalFacilities > 0 && (
-                      <p className="mt-1 text-xs text-white/75">
+                      <p className="mt-1 text-xs text-navy/70">
                         US + Canada combined
                       </p>
                     )}
                   </div>
                   {canadaNationwide.totalFacilities > 0 && (
-                    <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                    <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+                      <p className="text-teal text-xs font-semibold uppercase tracking-wide">
                         Canadian listings
                       </p>
-                      <p className="mt-2 text-2xl font-semibold text-white">
+                      <p className="mt-2 text-navy text-2xl font-bold">
                         {canadaNationwide.totalFacilities.toLocaleString()}
                       </p>
-                      <p className="mt-1 text-xs text-white/75">
+                      <p className="mt-1 text-xs text-navy/70">
                         {canadaNationwide.provinceCount.toLocaleString()} provinces
                         &amp; territories
                       </p>
                     </div>
                   )}
-                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                  <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+                    <p className="text-teal text-xs font-semibold uppercase tracking-wide">
                       Cities covered
                     </p>
-                    <p className="mt-2 text-2xl font-semibold text-white">
+                    <p className="mt-2 text-navy text-2xl font-bold">
                       {globalStats.totalCities.toLocaleString()}
                     </p>
                   </div>
-                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                  <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+                    <p className="text-teal text-xs font-semibold uppercase tracking-wide">
                       Average rating
                     </p>
-                    <p className="mt-2 text-2xl font-semibold text-white">
+                    <p className="mt-2 text-navy text-2xl font-bold">
                       {globalStats.averageRating != null
                         ? `${globalStats.averageRating}★`
                         : "—"}
                     </p>
                   </div>
-                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                  <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+                    <p className="text-teal text-xs font-semibold uppercase tracking-wide">
                       Quality standard
                     </p>
-                    <p className="mt-2 text-2xl font-semibold text-white">3★ minimum</p>
+                    <p className="mt-2 text-navy text-2xl font-bold">3★ minimum</p>
                   </div>
                 </div>
               </section>
