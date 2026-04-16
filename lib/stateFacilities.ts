@@ -147,26 +147,65 @@ const CANADIAN_REGION_SLUGS = new Set([
 ]);
 
 /**
- * US state slugs from `data/{slug}_facilities.json`, excluding Canadian province files.
- * readdir errors yield [] (no hardcoded empty state lists).
+ * All US state + DC `data/{slug}_facilities.json` keys (50 states + District of Columbia).
+ * Each slug is loaded in one batch via `loadUsStateFacilities` (`readFileSync` + try/catch → `[]`).
+ * Canadian province slugs are excluded here so they are never double-loaded as US data.
  */
-function discoverUsStateFacilitySlugs(): string[] {
-  const dataDir = path.join(process.cwd(), "data");
-  let entries: string[] = [];
-  try {
-    entries = fs.readdirSync(dataDir);
-  } catch {
-    return [];
-  }
-  const suffix = "_facilities.json";
-  return entries
-    .filter((name) => name.endsWith(suffix))
-    .map((name) => name.slice(0, -suffix.length))
-    .filter((slug) => slug.length > 0 && !CANADIAN_REGION_SLUGS.has(slug))
-    .sort((a, b) => a.localeCompare(b));
-}
+const ALL_US_STATE_FACILITY_SLUGS: readonly string[] = [
+  "alabama",
+  "alaska",
+  "arizona",
+  "arkansas",
+  "california",
+  "colorado",
+  "connecticut",
+  "delaware",
+  "district-of-columbia",
+  "florida",
+  "georgia",
+  "hawaii",
+  "idaho",
+  "illinois",
+  "indiana",
+  "iowa",
+  "kansas",
+  "kentucky",
+  "louisiana",
+  "maine",
+  "maryland",
+  "massachusetts",
+  "michigan",
+  "minnesota",
+  "mississippi",
+  "missouri",
+  "montana",
+  "nebraska",
+  "nevada",
+  "new-hampshire",
+  "new-jersey",
+  "new-mexico",
+  "new-york",
+  "north-carolina",
+  "north-dakota",
+  "ohio",
+  "oklahoma",
+  "oregon",
+  "pennsylvania",
+  "rhode-island",
+  "south-carolina",
+  "south-dakota",
+  "tennessee",
+  "texas",
+  "utah",
+  "vermont",
+  "virginia",
+  "washington",
+  "west-virginia",
+  "wisconsin",
+  "wyoming",
+] as const satisfies readonly string[];
 
-const US_STATE_SLUGS: readonly string[] = discoverUsStateFacilitySlugs();
+const US_STATE_SLUGS: readonly string[] = [...ALL_US_STATE_FACILITY_SLUGS];
 
 function fallbackStateNameFromSlug(stateSlug: string): string {
   return stateSlug
