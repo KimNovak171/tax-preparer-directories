@@ -74,75 +74,10 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <section className="bg-surface">
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
-          <section
-            aria-label="Directory statistics"
-            className="w-full rounded-2xl border border-navy/15 bg-surface-muted p-5 shadow-sm sm:p-6"
-          >
-            <div
-              className={`mx-auto grid w-full gap-4 sm:grid-cols-2 ${
-                canadaNationwide.totalFacilities > 0
-                  ? "lg:grid-cols-5"
-                  : "lg:grid-cols-4"
-              }`}
-            >
-              <div className="rounded-xl border border-teal/30 bg-surface-muted p-4 text-center shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-wide text-teal">
-                  Verified listings
-                </p>
-                <p className="mt-2 text-2xl font-semibold text-navy">
-                  {globalStats.totalFacilities.toLocaleString()}
-                </p>
-                {canadaNationwide.totalFacilities > 0 && (
-                  <p className="mt-1 text-xs text-navy/70">
-                    US + Canada combined
-                  </p>
-                )}
-              </div>
-              {canadaNationwide.totalFacilities > 0 && (
-                <div className="rounded-xl border border-teal/30 bg-surface-muted p-4 text-center shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-teal">
-                    Canadian listings
-                  </p>
-                  <p className="mt-2 text-2xl font-semibold text-navy">
-                    {canadaNationwide.totalFacilities.toLocaleString()}
-                  </p>
-                  <p className="mt-1 text-xs text-navy/70">
-                    {canadaNationwide.provinceCount.toLocaleString()} provinces
-                    &amp; territories
-                  </p>
-                </div>
-              )}
-              <div className="rounded-xl border border-teal/30 bg-surface-muted p-4 text-center shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-wide text-teal">
-                  Cities covered
-                </p>
-                <p className="mt-2 text-2xl font-semibold text-navy">
-                  {globalStats.totalCities.toLocaleString()}
-                </p>
-              </div>
-              <div className="rounded-xl border border-teal/30 bg-surface-muted p-4 text-center shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-wide text-teal">
-                  Average rating
-                </p>
-                <p className="mt-2 text-2xl font-semibold text-navy">
-                  {globalStats.averageRating != null
-                    ? `${globalStats.averageRating}★`
-                    : "—"}
-                </p>
-              </div>
-              <div className="rounded-xl border border-teal/30 bg-surface-muted p-4 text-center shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-wide text-teal">
-                  Quality standard
-                </p>
-                <p className="mt-2 text-2xl font-semibold text-navy">3★ minimum</p>
-              </div>
-            </div>
-          </section>
-
-          <div className="flex flex-col gap-6">
-            <div className="space-y-6 rounded-2xl bg-navy px-6 py-8 text-white shadow-sm sm:px-8 sm:py-10">
+      <section className="w-full bg-surface">
+        <div className="w-full bg-navy text-white">
+          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+            <div className="space-y-6">
               <p className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm">
                 Tax preparer directories
               </p>
@@ -154,9 +89,76 @@ export default async function Home() {
                 services across the United States and Canada—browse by state or
                 province, then by city. Every listing rated 3★ or higher on Google Maps.
               </p>
+
+              <section
+                aria-label="Directory statistics"
+                className="w-full border-t border-white/15 pt-8"
+              >
+                <div
+                  className={`grid w-full gap-4 sm:grid-cols-2 ${
+                    canadaNationwide.totalFacilities > 0
+                      ? "lg:grid-cols-5"
+                      : "lg:grid-cols-4"
+                  }`}
+                >
+                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                      Verified listings
+                    </p>
+                    <p className="mt-2 text-2xl font-semibold text-white">
+                      {globalStats.totalFacilities.toLocaleString()}
+                    </p>
+                    {canadaNationwide.totalFacilities > 0 && (
+                      <p className="mt-1 text-xs text-white/75">
+                        US + Canada combined
+                      </p>
+                    )}
+                  </div>
+                  {canadaNationwide.totalFacilities > 0 && (
+                    <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                        Canadian listings
+                      </p>
+                      <p className="mt-2 text-2xl font-semibold text-white">
+                        {canadaNationwide.totalFacilities.toLocaleString()}
+                      </p>
+                      <p className="mt-1 text-xs text-white/75">
+                        {canadaNationwide.provinceCount.toLocaleString()} provinces
+                        &amp; territories
+                      </p>
+                    </div>
+                  )}
+                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                      Cities covered
+                    </p>
+                    <p className="mt-2 text-2xl font-semibold text-white">
+                      {globalStats.totalCities.toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                      Average rating
+                    </p>
+                    <p className="mt-2 text-2xl font-semibold text-white">
+                      {globalStats.averageRating != null
+                        ? `${globalStats.averageRating}★`
+                        : "—"}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 text-center shadow-sm backdrop-blur-sm">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">
+                      Quality standard
+                    </p>
+                    <p className="mt-2 text-2xl font-semibold text-white">3★ minimum</p>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
+        </div>
 
+        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
           <div className="w-full rounded-2xl border-2 border-teal/40 bg-surface p-6 shadow-xl shadow-navy/20 ring-1 ring-gold/30">
             <h2 className="text-xl font-semibold text-navy">
               Start with a state directory
