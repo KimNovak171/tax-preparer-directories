@@ -21,7 +21,7 @@ type FacilityCardProps = {
   facility: Facility;
 };
 
-const CARE_TYPE_BADGE_COLOR = "#c1121f";
+const CARE_TYPE_BADGE_COLOR = "#b8935a";
 
 function truncateToWords(text: string, maxWords: number): string {
   const trimmed = (text ?? "").trim();
@@ -99,7 +99,7 @@ const renderRating = (
   if (!mapsUrl) {
     return (
       <div
-        className="flex items-center gap-1 text-sm font-semibold text-teal"
+        className="flex items-center gap-1 text-sm font-semibold text-gold"
         aria-label={`${Number(rating).toFixed(1)} out of 5 stars`}
       >
         {content}
@@ -112,7 +112,7 @@ const renderRating = (
       href={mapsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-1 text-sm font-semibold text-teal underline underline-offset-2 hover:text-teal-soft"
+      className="flex items-center gap-1 text-sm font-semibold text-gold underline underline-offset-2 hover:text-gold-soft"
       aria-label={`View ${Number(rating).toFixed(1)} star rating and reviews on Google Maps`}
     >
       {content}

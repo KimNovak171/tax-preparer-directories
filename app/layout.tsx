@@ -82,13 +82,13 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex min-h-screen flex-col bg-surface-muted text-foreground">
-          <header className="bg-brand-gradient w-full border-b-[3px] border-brand-champagne/60 text-brand-ink">
+        <div className="flex min-h-screen flex-col bg-background text-foreground">
+          <header className="w-full bg-navy text-white border-b-[3px] border-gold">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
               <div className="flex items-center gap-6">
                 <Link
                   href="/"
-                  className="text-[11px] font-bold tracking-[0.28em] sm:text-xs text-brand-ink transition-colors hover:opacity-80"
+                  className="text-[11px] font-bold tracking-[0.28em] sm:text-xs text-white transition-colors hover:text-gold-soft"
                   aria-label={`${DIRECTORY_BRAND_NAME} – go to homepage`}
                 >
                   {DIRECTORY_BRAND_NAME}
@@ -96,37 +96,37 @@ export default async function RootLayout({
                 <nav className="flex items-center gap-4" aria-label="Main navigation">
                   <Link
                     href="/"
-                    className="text-xs font-medium text-brand-ink/90 transition-colors hover:text-brand-ink"
+                    className="text-xs font-medium text-white/90 transition-colors hover:text-gold-soft"
                   >
                     USA
                   </Link>
                   <Link
                     href="/canada"
-                    className="text-xs font-medium text-brand-ink/90 transition-colors hover:text-brand-ink"
+                    className="text-xs font-medium text-white/90 transition-colors hover:text-gold-soft"
                   >
                     Canada
                   </Link>
                   <Link
                     href="/blog"
-                    className="text-xs font-medium text-brand-ink/90 transition-colors hover:text-brand-ink"
+                    className="text-xs font-medium text-white/90 transition-colors hover:text-gold-soft"
                   >
                     Blog
                   </Link>
                   <Link
                     href="/contact"
-                    className="text-xs font-medium text-brand-ink/90 transition-colors hover:text-brand-ink"
+                    className="text-xs font-medium text-white/90 transition-colors hover:text-gold-soft"
                   >
                     Contact
                   </Link>
                   <Link
                     href="/advertise"
-                    className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-semibold text-white shadow-sm backdrop-blur-sm transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-surface-muted"
+                    className="inline-flex items-center rounded-full bg-[#059669] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#047857] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
                   >
                     Advertise
                   </Link>
                 </nav>
               </div>
-              <p className="ml-4 hidden max-w-xs text-right text-xs text-brand-ink/85 sm:block">
+              <p className="ml-4 hidden max-w-xs text-right text-xs text-white/85 sm:block">
                 Trusted tax preparer directory for clients choosing professional help at tax time.
               </p>
             </div>
@@ -135,14 +135,14 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
 
           <section
-            className="w-full border-t-[3px] border-teal bg-surface px-4 py-5 text-foreground/80 sm:px-6 lg:px-8"
+            className="w-full bg-navy border-t-[3px] border-gold px-4 py-5 text-white/80 sm:px-6 lg:px-8"
             aria-label="Full state and city directory"
           >
             <div className="mx-auto flex max-w-6xl flex-col gap-4">
-              <h2 className="text-sm font-semibold text-foreground">
+              <h2 className="text-sm font-semibold text-white">
                 Full State and City Directory
               </h2>
-              <p className="text-[11px] text-foreground/70">
+              <p className="text-[11px] text-white/70">
                 Crawlable internal links to every state and city page.
               </p>
               <div className="flex flex-col gap-5">
@@ -150,7 +150,7 @@ export default async function RootLayout({
                   <div key={state.stateSlug} className="space-y-2">
                     <Link
                       href={`/${state.stateSlug}`}
-                      className="text-sm font-semibold text-teal hover:text-teal-soft"
+                      className="text-sm font-semibold text-gold-soft hover:text-gold"
                     >
                       {state.stateName}
                     </Link>
@@ -159,7 +159,7 @@ export default async function RootLayout({
                         <Link
                           key={`${state.stateSlug}-${city.citySlug}`}
                           href={`/${state.stateSlug}/${city.citySlug}`}
-                          className="text-[11px] text-foreground/85 hover:text-teal"
+                          className="text-[11px] text-white/85 hover:text-gold"
                         >
                           {city.cityName}
                         </Link>
@@ -169,10 +169,10 @@ export default async function RootLayout({
                 ))}
                 {canadaDirectory.length > 0 && (
                   <>
-                    <div className="space-y-2 border-t border-teal/10 pt-5">
+                    <div className="space-y-2 border-t border-gold/20 pt-5">
                       <Link
                         href="/canada"
-                        className="text-sm font-semibold text-teal hover:text-teal-soft"
+                        className="text-sm font-semibold text-gold-soft hover:text-gold"
                       >
                         Canada
                       </Link>
@@ -181,7 +181,7 @@ export default async function RootLayout({
                       <div key={province.provinceSlug} className="space-y-2">
                         <Link
                           href={`/canada/${province.provinceSlug}`}
-                          className="text-sm font-semibold text-teal hover:text-teal-soft"
+                          className="text-sm font-semibold text-gold-soft hover:text-gold"
                         >
                           {province.provinceName}
                         </Link>
@@ -190,7 +190,7 @@ export default async function RootLayout({
                             <Link
                               key={`${province.provinceSlug}-${city.citySlug}`}
                               href={`/canada/${province.provinceSlug}/${city.citySlug}`}
-                              className="text-[11px] text-foreground/85 hover:text-teal"
+                              className="text-[11px] text-white/85 hover:text-gold"
                             >
                               {city.cityName}
                             </Link>
@@ -204,30 +204,30 @@ export default async function RootLayout({
             </div>
           </section>
 
-          <footer className="w-full border-t border-teal/10 bg-surface">
-            <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 text-xs text-foreground/80 sm:px-6 lg:px-8">
+          <footer className="w-full bg-navy border-t-[3px] border-gold">
+            <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 text-xs text-white/80 sm:px-6 lg:px-8">
               <p>
                 © {new Date().getFullYear()} {DIRECTORY_BRAND_NAME}. For
                 informational purposes only – always verify licensing,
                 PTIN or CPA credentials, and any regulatory requirements with the appropriate authority in your area.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link href="/about" className="hover:text-teal-soft">
+                <Link href="/about" className="hover:text-gold">
                   About this directory
                 </Link>
-                <Link href="/contact" className="hover:text-teal-soft">
+                <Link href="/contact" className="hover:text-gold">
                   Contact
                 </Link>
-                <Link href="/privacy" className="hover:text-teal-soft">
+                <Link href="/privacy" className="hover:text-gold">
                   Privacy &amp; terms
                 </Link>
-                <Link href="/advertise" className="hover:text-teal-soft">
+                <Link href="/advertise" className="hover:text-gold">
                   Advertise
                 </Link>
-                <Link href="/advertise" className="hover:text-teal-soft">
+                <Link href="/advertise" className="hover:text-gold">
                   For tax preparers &amp; firms
                 </Link>
-                <Link href="/advertise" className="hover:text-teal-soft">
+                <Link href="/advertise" className="hover:text-gold">
                   Featured listing
                 </Link>
               </div>
