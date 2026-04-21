@@ -7,6 +7,7 @@ import {
 } from "@/lib/careTypesProse";
 import {
   getCityFacilities,
+  getDirectoryIndex,
   getHreflangForRegionSlug,
   getOtherCitiesInState,
 } from "@/lib/stateFacilities";
@@ -64,7 +65,16 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  return [];
+  const directory = await getDirectoryIndex();
+  const out: { stateSlug: string; citySlug: string }[] = [];
+  for (const state of directory) {
+    if (!state.stateSlug) continue;
+    for (const city of state.cities) {
+      if (!city.citySlug) continue;
+      out.push({ stateSlug: state.stateSlug, citySlug: city.citySlug });
+    }
+  }
+  return out;
 }
 
 export default async function CityPage({ params }: CityPageProps) {
