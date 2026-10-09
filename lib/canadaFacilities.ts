@@ -85,6 +85,7 @@ type CanadaFacilityRaw = {
   recommended?: boolean;
   featured?: boolean;
   premium?: boolean;
+  claimed?: boolean;
   logo?: string | null;
   tagline?: string | null;
 };
@@ -106,6 +107,7 @@ export type CanadaRawFacility = {
   careTypes?: string[];
   featured?: boolean;
   premium?: boolean;
+  claimed?: boolean;
   recommended?: boolean;
   logo?: string | null;
   tagline?: string | null;
@@ -221,6 +223,7 @@ function transformCanadaFacilities(
       careTypes: careTypesFromCanadaRaw(f),
       featured: f.featured ?? undefined,
       premium: f.premium ?? undefined,
+      claimed: f.claimed ?? undefined,
       recommended: f.recommended ?? undefined,
       logo: f.logo ?? undefined,
       tagline: f.tagline ?? undefined,
